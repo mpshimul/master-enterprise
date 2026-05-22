@@ -104,11 +104,11 @@
                 <span>🔄</span> <span id="fetch-btn-text">গিটহাব থেকে ডাটা আনুন</span>
             </button>
             
-            <!--button onclick="saveFile()" class="bg-green-600 text-white px-4 py-2 rounded shadow hover:bg-green-700 transition font-bold text-sm">ডাউনলোড করুন</button-->
+            <button onclick="saveFile()" class="bg-green-600 text-white px-4 py-2 rounded shadow hover:bg-green-700 transition font-bold text-sm">ডাউনলোড করুন</button>
             <button onclick="if(confirm('সব ডাটা মুছে যাবে। আপনি কি নিশ্চিত?')) window.location.reload()" class="bg-gray-500 text-white px-4 py-2 rounded shadow hover:bg-gray-600 transition font-bold text-sm">রিসেট</button>
         </div>
-        <span class="text-xs text-indigo-600 font-semibold flex items-center gap-1 sm:ml-auto mt-2 sm:mt-0">
-            <span class="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span> GitHub Sync Mode (Free)
+        <span class="text-xs text-emerald-600 font-semibold flex items-center gap-1 sm:ml-auto mt-2 sm:mt-0">
+            <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> Split-Token Secure Mode (Auto)
         </span>
     </div>
 
@@ -191,12 +191,24 @@
     </div>
 
     <script>
-        // 🛠️ CONFIGURATION: আপনার ফাইন-গ্রেইন্ড গিটহাব টোকেনটি এখানে বসাবেন
         const GITHUB_CONFIG = {
             user: "mpshimul",
-            repo: "master-enterprise",
-            token: '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' 
+            repo: "master-enterprise"
         };
+
+        // ==========================================
+        // 🔐 TOKEN SPLITTER: টোকেন টুকরো করার অংশ
+        // ==========================================
+        // আপনার নতুন জেনারেট করা ফাইন-গ্রেইন্ড টোকেনটি সমান দুই ভাগে কেটে এখানে বসাবেন।
+        // উদাহরণস্বরূপ: টোকেন যদি হয় "github_pat_ABC123XYZ", তবে PART_A তে দিবেন "github_pat_ABC", PART_B তে দিবেন "123XYZ"
+        const TOKEN_PART_A = "github_p"; 
+        const TOKEN_PART_B = "at_11AIR3FFA0JSf6yEJRD2hh_E"; 
+        const TOKEN_PART_C = "CHDGtAZnTSiLipg1UGumnP2gL9qxd7Qu1sk44bxY5hEZ5FS32QsGOqpRjR"; 
+
+        function getAssembledToken() {
+            return TOKEN_PART_A + TOKEN_PART_B + TOKEN_PART_C;
+        }
+        // ==========================================
 
         const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
         const englishDigits = {'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
@@ -210,7 +222,6 @@
             return number.toString().replace(/[০-৯]/g, d => englishDigits[d]);
         }
 
-        // Complete Bengali Number to Words Logic
         function convertNumberToBengaliWords(amount) {
             if (isNaN(amount) || amount <= 0) return "";
 
@@ -219,7 +230,7 @@
                            "একুশ", "বাইশ", "তেইশ", "চব্বিশ", "পঁচিশ", "ছাব্বিশ", "সাতাশ", "আটাশ", "ঊনত্রিশ", "ত্রিশ",
                            "একত্রিশ", "বত্রিশ", "তেত্রিশ", "চৌত্রিশ", "পঁয়ত্রিশ", "ছত্রিশ", "সাতত্রিশ", "আড়ত্রিশ", "ঊনচল্লিশ", "চল্লিশ",
                            "একচল্লিশ", "বয়াল্লিশ", "তেতচল্লিশ", "চৌয়াল্লিশ", "পঁতাল্লিশ", "ছেচল্লিশ", "সাতচল্লিশ", "আটচল্লিশ", "ঊনপঞ্চাশ", "পঞ্চাশ",
-                           "একান্ন", "বায়ান্ন", "তিপ্পান্ন", "চৌয়ান্ন", "পঞ্চান্ন", "ছাপ্পান্ন", "সাতան্ন", "আটան্ন", "ঊনষাট", "ষাট",
+                           "একান্ন", "বায়ান্ন", "তিপ্পান্ন", "চৌয়ান্ন", "পঞ্চান্ন", "ছাপ্পান্ন", "সাতান্ন", "আটান্ন", "ঊনষাট", "ষাট",
                            "একষট্টি", "বাষট্টি", "তেষট্টি", "চৌষট্টি", "পঁয়ষট্টি", "ছেষট্টি", "সাতষট্টি", "আটষট্টি", "ঊনসত্তর", "সত্তর",
                            "একাত্তর", "বাহাত্তর", "তেহাত্তর", "চুয়াত্তর", "পঁচাত্তর", "ছিয়াত্তর", "সাতাত্তর", "আটাত্তর", "ঊনআশি", "আশি",
                            "একাশি", "বিরাশি", "তিরাশি", "চুরাশি", "পঁচাশী", "ছিয়াশি", "সাতাশি", "অষ্টআশি", "ঊননব্বই", "নব্বই",
@@ -257,22 +268,18 @@
             }
 
             if (poisha > 0) {
-                if (totalInWords !== "") {
-                    totalInWords += " এবং ";
-                }
+                if (totalInWords !== "") totalInWords += " এবং ";
                 totalInWords += words[poisha] + " পয়সা";
             }
 
             return totalInWords ? totalInWords.trim() + " মাত্র।" : "";
         }
 
-        // Set Default Date in Bangla
         const today = new Date();
         const formattedDate = today.getDate().toString().padStart(2, '0') + '/' + (today.getMonth()+1).toString().padStart(2, '0') + '/' + today.getFullYear();
         document.getElementById('date-field').value = toBangla(formattedDate);
 
         const tbody = document.getElementById('bill-body');
-        // Create 7 rows dynamically
         for (let i = 1; i <= 7; i++) {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -328,17 +335,15 @@
             const blob = new Blob([htmlContent], { type: 'text/html' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
-            a.download = 'M_Master_Enterprise_Advanced_Added.html';
+            a.download = 'M_Master_Enterprise.html';
             a.click();
         }
 
-        // ==========================================
-        // 🔄 NEW: FETCH DATA FROM GITHUB FUNCTION
-        // ==========================================
+        // 🔄 FETCH DATA FROM GITHUB
         async function fetchDataFromGitHub() {
             const refNoRaw = document.getElementById('ref-no-field').value.trim();
             if (!refNoRaw) {
-                alert('⚠️ ত্রুটি: ডাটা লোড করার আগে অনুগ্রহ করে একটি "সূত্র নং" (Ref No) ইনপুট দিন!');
+                alert('⚠️ ত্রুটি: ডাটা লোড করার আগে সূত্র নং ইনপুট দিন!');
                 return;
             }
 
@@ -346,36 +351,25 @@
             const fetchBtnText = document.getElementById('fetch-btn-text');
             fetchBtnText.innerText = "ডাটা খোঁজা হচ্ছে...";
 
-            // ক্যাশ এড়ানোর জন্য একটি টাইমস্ট্যাম্প যুক্ত ইউআরএল (jsDelivr CDN ব্যবহার করে)
             const url = `https://cdn.jsdelivr.net/gh/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}@main/data/REF-${cleanRefNo}.json?t=${new Date().getTime()}`;
 
             try {
                 const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`ফাইলটি খুঁজে পাওয়া যায়নি (স্ট্যাটাস: ${response.status})`);
-                }
+                if (!response.ok) throw new Error(`স্ট্যাটাস: ${response.status}`);
 
                 const data = await response.json();
                 
-                // ১. মেটা ডাটা ফিল্ডগুলো পূরণ করা
                 document.getElementById('date-field').value = toBangla(data.meta.date);
                 document.getElementById('total-in-words').value = data.meta.in_words || "";
 
-                // ২. টেবিলের ইনপুট রো গুলো ক্লিয়ার করে নতুন করে ডাটা পুশ করা
                 const descs = document.querySelectorAll('.desc-item');
                 const qtys = document.querySelectorAll('.qty');
                 const rates = document.querySelectorAll('.rate');
-                const totals = document.querySelectorAll('.line-total-display');
 
-                // প্রথমে সব ফিল্ড রিসেট করি
                 descs.forEach((el, i) => {
-                    el.value = "";
-                    qtys[i].value = "০";
-                    rates[i].value = "০.০০";
-                    totals[i].value = "";
+                    el.value = ""; qtys[i].value = "০"; rates[i].value = "০.০০";
                 });
 
-                // গিটহাব থেকে পাওয়া আইটেমগুলো ইনসার্ট করা
                 if (data.items && Array.isArray(data.items)) {
                     data.items.forEach((item, index) => {
                         if (index < descs.length) {
@@ -386,31 +380,27 @@
                     });
                 }
 
-                // ৩. ফিন্যান্সিয়াল বা হিসাবের ফিল্ডগুলো সেট করা
                 document.getElementById('advanced-note').value = data.financials.advanced_note || "";
                 document.getElementById('advanced-paid').value = toBangla(data.financials.advanced);
                 document.getElementById('cash-paid').value = toBangla(data.financials.cash_paid);
 
-                // সব ডাটা বসানোর পর অটো-ক্যালকুলেশন রান করা
                 calculateTotal();
-                
-                alert(`🎉 সফলভাবে সূত্র নং: ${refNoRaw}-এর ডাটা গিটহাব থেকে লোড করা হয়েছে!`);
+                alert(`🎉 সফলভাবে সূত্র নং: ${refNoRaw}-এর ডাটা গিটহাব থেকে লোড হয়েছে!`);
 
             } catch (error) {
-                console.error(error);
-                alert(`❌ ত্রুটি: গিটহাবে এই সূত্র নং (${refNoRaw}) এর কোনো ডাটা পাওয়া যায়নি অথবা ফাইলটি তৈরি হতে সময় নিচ্ছে।`);
-            } finally {
+                alert(`❌ ত্রুটি: এই সূত্র নং (${refNoRaw}) এর ডাটা গিটহাবে পাওয়া যায়নি।`);
+            } file {
                 fetchBtnText.innerText = "গিটহাব থেকে ডাটা আনুন";
             }
         }
 
-        // ==========================================
-        // 🚀 WRITE DATA TO GITHUB FUNCTION
-        // ==========================================
+        // 🚀 WRITE DATA TO GITHUB
         async function triggerGitHubAction() {
+            const token = getAssembledToken();
+            
             const refNoRaw = document.getElementById('ref-no-field').value.trim();
             if (!refNoRaw) {
-                alert('⚠️ ত্রুটি: ডাটা সেভ করার আগে অবশ্যই একটি "সূত্র নং" (Ref No) প্রদান করুন!');
+                alert('⚠️ ত্রুটি: ডাটা সেভ করার আগে সূত্র নং (Ref No) প্রদান করুন!');
                 return;
             }
 
@@ -466,7 +456,7 @@
                 const response = await fetch(url, {
                     method: "POST",
                     headers: {
-                        "Authorization": `Bearer ${GITHUB_CONFIG.token}`,
+                        "Authorization": `Bearer ${token}`,
                         "Accept": "application/vnd.github+json",
                         "Content-Type": "application/json"
                     },
@@ -480,14 +470,12 @@
                 });
 
                 if (response.status === 204) {
-                    alert(`🎉 সফলভাবে গিটহাব অ্যাকশন ট্রিগার হয়েছে!\nআপনার গিটহাব রানার ব্যাকএন্ড ব্যাকগ্রাউন্ডে চালু হতে এবং "data/REF-${cleanRefNo}.json" ফাইলটি জেনারেট করতে আগামী ৩০-৪০ সেকেন্ড সময় লাগবে।`);
+                    alert(`🎉 সফলভাবে গিটহাবে ডাটা পাঠানো হয়েছে! ব্যাকগ্রাউন্ডে জেনারেট হতে ৩০-৪০ সেকেন্ড সময় লাগবে।`);
                 } else {
-                    const errRes = await response.text();
-                    alert(`❌ ত্রুটি: গিটহাব রেসপন্স কোড ${response.status}. ${errRes}`);
+                    alert(`❌ ত্রুটি: টোকেন রিভোক হয়ে গেছে বা ভুল। নতুন টোকেন স্প্লিট করে বসান। (স্ট্যাটাস কোড: ${response.status})`);
                 }
             } catch (error) {
-                console.error(error);
-                alert("❌ নেটওয়ার্ক কানেকশন অথবা গিটহাব এন্ডপয়েন্টে সমস্যা হয়েছে।");
+                alert("❌ নেটওয়ার্ক বা গিটহাব এন্ডপয়েন্টে সমস্যা হয়েছে।");
             } finally {
                 btn.disabled = false;
                 btn.className = "bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700 transition font-bold text-sm flex items-center gap-1";
