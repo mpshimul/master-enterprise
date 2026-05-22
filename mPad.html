@@ -170,8 +170,8 @@
         </div>
 
         <div class="mb-20 relative z-10 flex gap-2">
-            <span class="whitespace-nowrap font-bold">কথায়:</span>
-            <input type="text" id="total-in-words" class="border-b border-dashed border-gray-400 flex-grow text-left-input" placeholder="কথায় স্বয়ংক্রিয়ভাবে লেখা হবে..." readonly="">
+            <span class="whitespace-nowrap font-bold">কথায় (বাকি টাকা):</span>
+            <input type="text" id="total-in-words" class="border-b border-dashed border-gray-400 flex-grow text-left-input" placeholder="বাকি টাকা কথায় স্বয়ংক্রিয়ভাবে লেখা হবে..." readonly="">
         </div>
 
         <div class="absolute bottom-16 left-15 right-15 flex justify-between items-end relative z-10 mt-24" style="margin-top: 60px;">
@@ -199,8 +199,6 @@
         // ==========================================
         // 🔐 TOKEN SPLITTER: টোকেন টুকরো করার অংশ
         // ==========================================
-        // আপনার নতুন জেনারেট করা ফাইন-গ্রেইন্ড টোকেনটি সমান দুই ভাগে কেটে এখানে বসাবেন।
-        // উদাহরণস্বরূপ: টোকেন যদি হয় "github_pat_ABC123XYZ", তবে PART_A তে দিবেন "github_pat_ABC", PART_B তে দিবেন "123XYZ"
         const TOKEN_PART_A = "github_p"; 
         const TOKEN_PART_B = "at_11AIR3FFA0JSf6yEJRD2hh_E"; 
         const TOKEN_PART_C = "CHDGtAZnTSiLipg1UGumnP2gL9qxd7Qu1sk44bxY5hEZ5FS32QsGOqpRjR"; 
@@ -227,7 +225,7 @@
 
             const words = ["", "এক", "দুই", "তিন", "চার", "পাঁচ", "ছয়", "সাত", "আট", "নয়", "দশ", 
                            "এগারো", "বারো", "তেরো", "চৌদ্দ", "পনেরো", "ষোলো", "সতেরো", "আঠারো", "উনিশ", "বিশ",
-                           "একুশ", "বাইশ", "তেইশ", "চব্বিশ", "পঁচিশ", "ছাব্বিশ", "সাতাশ", "আটাশ", "ঊনত্রিশ", "ত্রিশ",
+                           "একুশ", "বাইশ", "তেইশ", "চব্বিশ", "পঁয়চিশ", "ছাব্বিশ", "সাতাশ", "আটাশ", "ঊনত্রিশ", "ত্রিশ",
                            "একত্রিশ", "বত্রিশ", "তেত্রিশ", "চৌত্রিশ", "পঁয়ত্রিশ", "ছত্রিশ", "সাতত্রিশ", "আড়ত্রিশ", "ঊনচল্লিশ", "চল্লিশ",
                            "একচল্লিশ", "বয়াল্লিশ", "তেতচল্লিশ", "চৌয়াল্লিশ", "পঁতাল্লিশ", "ছেচল্লিশ", "সাতচল্লিশ", "আটচল্লিশ", "ঊনপঞ্চাশ", "পঞ্চাশ",
                            "একান্ন", "বায়ান্ন", "তিপ্পান্ন", "চৌয়ান্ন", "পঞ্চান্ন", "ছাপ্পান্ন", "সাতান্ন", "আটান্ন", "ঊনষাট", "ষাট",
@@ -275,6 +273,7 @@
             return totalInWords ? totalInWords.trim() + " মাত্র।" : "";
         }
 
+        // সেটআপ এবং ৭টি রো জেনারেশন লজিক
         const today = new Date();
         const formattedDate = today.getDate().toString().padStart(2, '0') + '/' + (today.getMonth()+1).toString().padStart(2, '0') + '/' + today.getFullYear();
         document.getElementById('date-field').value = toBangla(formattedDate);
@@ -314,7 +313,6 @@
             });
 
             document.getElementById('grand-total-display').value = toBangla(grandTotal.toFixed(2));
-            document.getElementById('total-in-words').value = convertNumberToBengaliWords(grandTotal);
             
             const advancedInput = document.getElementById('advanced-paid');
             const advancedVal = toEnglish(advancedInput.value);
@@ -328,6 +326,12 @@
             
             const due = grandTotal - adv - paid;
             document.getElementById('due-amount-display').value = toBangla(due.toFixed(2));
+
+            if (due > 0) {
+                document.getElementById('total-in-words').value = convertNumberToBengaliWords(due);
+            } else {
+                document.getElementById('total-in-words').value = "০ টাকা মাত্র।";
+            }
         }
 
         function saveFile() {
@@ -389,7 +393,7 @@
 
             } catch (error) {
                 alert(`❌ ত্রুটি: এই সূত্র নং (${refNoRaw}) এর ডাটা গিটহাবে পাওয়া যায়নি।`);
-            } file {
+            } finally {
                 fetchBtnText.innerText = "গিটহাব থেকে ডাটা আনুন";
             }
         }
@@ -472,7 +476,7 @@
                 if (response.status === 204) {
                     alert(`🎉 সফলভাবে গিটহাবে ডাটা পাঠানো হয়েছে! ব্যাকগ্রাউন্ডে জেনারেট হতে ৩০-৪০ সেকেন্ড সময় লাগবে।`);
                 } else {
-                    alert(`❌ ত্রুটি: টোকেন রিভোক হয়ে গেছে বা ভুল। নতুন টোকেন স্প্লিট করে বসান। (স্ট্যাটাস কোড: ${response.status})`);
+                    alert(`❌ ত্রুটি: টোকেন রিভোক হয়ে গেছে বা ভুল। (স্ট্যাটাস কোড: ${response.status})`);
                 }
             } catch (error) {
                 alert("❌ নেটওয়ার্ক বা গিটহাব এন্ডপয়েন্টে সমস্যা হয়েছে।");
