@@ -97,14 +97,14 @@
             <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition font-bold text-sm">প্রিন্ট / PDF সেভ</button>
             
             <button id="save-btn" onclick="triggerGitHubAction()" class="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700 transition font-bold text-sm flex items-center gap-1">
-                <span id="btn-icon">🚀</span> <span id="btn-text">গিটহাবে ডাটা পাঠান</span>
+                <span id="btn-icon">🚀</span> <span id="btn-text">ডাটা পাঠান</span>
             </button>
             
             <button id="fetch-btn" onclick="fetchDataFromGitHub()" class="bg-amber-500 text-white px-4 py-2 rounded shadow hover:bg-amber-600 transition font-bold text-sm flex items-center gap-1">
-                <span>🔄</span> <span id="fetch-btn-text">গিটহাব থেকে ডাটা আনুন</span>
+                <span>🔄</span> <span id="fetch-btn-text">ডাটা আনুন</span>
             </button>
             
-            <button onclick="saveFile()" class="bg-green-600 text-white px-4 py-2 rounded shadow hover:bg-green-700 transition font-bold text-sm">ডাউনলোড করুন</button>
+            <!--button onclick="saveFile()" class="bg-green-600 text-white px-4 py-2 rounded shadow hover:bg-green-700 transition font-bold text-sm">ডাউনলোড করুন</button-->
             <button onclick="if(confirm('সব ডাটা মুছে যাবে। আপনি কি নিশ্চিত?')) window.location.reload()" class="bg-gray-500 text-white px-4 py-2 rounded shadow hover:bg-gray-600 transition font-bold text-sm">রিসেট</button>
         </div>
         <span class="text-xs text-emerald-600 font-semibold flex items-center gap-1 sm:ml-auto mt-2 sm:mt-0">
@@ -343,7 +343,7 @@
             a.click();
         }
 
-        // 🔄 FETCH DATA FROM GITHUB
+        // 🔄 FETCH DATA FROM GITHUB (ফিক্সড)
         async function fetchDataFromGitHub() {
             const refNoRaw = document.getElementById('ref-no-field').value.trim();
             if (!refNoRaw) {
@@ -355,6 +355,7 @@
             const fetchBtnText = document.getElementById('fetch-btn-text');
             fetchBtnText.innerText = "ডাটা খোঁজা হচ্ছে...";
 
+            // ক্যাশিং এড়াতে টাইমস্ট্যাম্প কুয়েরি প্যারামিটার যুক্ত ইউআরএল
             const url = `https://cdn.jsdelivr.net/gh/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}@main/data/REF-${cleanRefNo}.json?t=${new Date().getTime()}`;
 
             try {
@@ -363,9 +364,11 @@
 
                 const data = await response.json();
                 
+                // মেটা ডাটা ফিল্ডে বসানো
                 document.getElementById('date-field').value = toBangla(data.meta.date);
                 document.getElementById('total-in-words').value = data.meta.in_words || "";
 
+                // আগের ইনপুটগুলো রিসেট করা
                 const descs = document.querySelectorAll('.desc-item');
                 const qtys = document.querySelectorAll('.qty');
                 const rates = document.querySelectorAll('.rate');
@@ -374,6 +377,7 @@
                     el.value = ""; qtys[i].value = "০"; rates[i].value = "০.০০";
                 });
 
+                // নতুন ডাটা টেবিলে বসানো
                 if (data.items && Array.isArray(data.items)) {
                     data.items.forEach((item, index) => {
                         if (index < descs.length) {
@@ -384,17 +388,20 @@
                     });
                 }
 
+                // ফিন্যান্সিয়াল ডাটা বসানো
                 document.getElementById('advanced-note').value = data.financials.advanced_note || "";
                 document.getElementById('advanced-paid').value = toBangla(data.financials.advanced);
                 document.getElementById('cash-paid').value = toBangla(data.financials.cash_paid);
 
+                // পুনরায় মোট এবং বাকি টাকা হিসাব করা
                 calculateTotal();
-                alert(`🎉 সফলভাবে সূত্র নং: ${refNoRaw}-এর ডাটা গিটহাব থেকে লোড হয়েছে!`);
+                alert(`🎉 সফলভাবে সূত্র নং: ${refNoRaw}-এর ডাটা পেজে লোড হয়েছে!`);
 
             } catch (error) {
-                alert(`❌ ত্রুটি: এই সূত্র নং (${refNoRaw}) এর ডাটা গিটহাবে পাওয়া যায়নি।`);
+                console.error(error);
+                alert(`❌ ত্রুটি: এই সূত্র নং (${refNoRaw}) এর ডাটা প্রসেস করা যায়নি বা পাওয়া যায়নি।`);
             } finally {
-                fetchBtnText.innerText = "গিটহাব থেকে ডাটা আনুন";
+                fetchBtnText.innerText = "  থেকে ডাটা আনুন";
             }
         }
 
@@ -474,17 +481,17 @@
                 });
 
                 if (response.status === 204) {
-                    alert(`🎉 সফলভাবে গিটহাবে ডাটা পাঠানো হয়েছে! ব্যাকগ্রাউন্ডে জেনারেট হতে ৩০-৪০ সেকেন্ড সময় লাগবে।`);
+                    alert(`🎉 সফলভাবে  ডাটা পাঠানো হয়েছে! ব্যাকগ্রাউন্ডে জেনারেট হতে ৩০-৪০ সেকেন্ড সময় লাগবে।`);
                 } else {
                     alert(`❌ ত্রুটি: টোকেন রিভোক হয়ে গেছে বা ভুল। (স্ট্যাটাস কোড: ${response.status})`);
                 }
             } catch (error) {
-                alert("❌ নেটওয়ার্ক বা গিটহাব এন্ডপয়েন্টে সমস্যা হয়েছে।");
+                alert("❌ নেটওয়ার্ক বা   এন্ডপয়েন্টে সমস্যা হয়েছে।");
             } finally {
                 btn.disabled = false;
                 btn.className = "bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700 transition font-bold text-sm flex items-center gap-1";
                 btnIcon.innerText = "🚀";
-                btnText.innerText = "গিটহাবে ডাটা পাঠান";
+                btnText.innerText = " ডাটা পাঠান";
             }
         }
     </script>
