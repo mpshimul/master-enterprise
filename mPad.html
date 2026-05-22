@@ -106,7 +106,7 @@
                 <h1 class="text-4xl font-bold text-blue-900 mb-1">মেসার্স মাস্টার এন্টারপ্রাইজ</h1>
                 <p class="text-lg text-gray-700 font-semibold">(সাধারণ ঠিকাদার প্রতিষ্ঠান)</p>
                 <p class="text-md text-gray-600">রাজেন্দ্রপুর ক্যান্টনমেন্ট, গাজীপুর সদর, গাজীপুর।</p>
-                <div class="tagline">এখানে সকল প্রকার উন্নত মানের নির্মাণ সামগ্রী সরবরাহ করা হয়।</div>
+                <div class="tagline">এখানে সকল প্রকার উন্নত মানের নির্মাণ সামগ্রী সরবরাহ করা হয়।</div>
             </div>
             <div class="text-right">
                 <div class="bg-blue-900 text-white px-3 py-1 rounded mb-2 inline-block">
@@ -158,10 +158,10 @@
 
         <div class="mb-20 relative z-10 flex gap-2">
             <span class="whitespace-nowrap font-bold">কথায়:</span>
-            <input type="text" class="border-b border-dashed border-gray-400 flex-grow text-left-input" placeholder="কথায় লিখুন...">
+            <input type="text" id="total-in-words" class="border-b border-dashed border-gray-400 flex-grow text-left-input" placeholder="কথায় স্বয়ংক্রিয়ভাবে লেখা হবে..." readonly>
         </div>
 
-        <div class="absolute bottom-16 left-15 right-15 flex justify-between items-end relative z-10 mt-24">
+		<div class="absolute bottom-16 left-15 right-15 flex justify-between items-end relative z-10 mt-24" style="margin-top: 60px;">
             <div class="text-center">
                 <div class="border-t border-gray-400 w-48 mb-1"></div>
                 <p class="text-sm font-semibold">ক্রেতার স্বাক্ষর</p>
@@ -188,6 +188,62 @@
 
         function toEnglish(number) {
             return number.toString().replace(/[০-৯]/g, d => englishDigits[d]);
+        }
+
+        // Complete Bengali Number to Words Logic
+        function convertNumberToBengaliWords(amount) {
+            if (isNaN(amount) || amount <= 0) return "";
+
+            const words = ["", "এক", "দুই", "তিন", "চার", "পাঁচ", "ছয়", "সাত", "আট", "নয়", "দশ", 
+                           "এগারো", "বারো", "তেরো", "চৌদ্দ", "পনেরো", "ষোলো", "সতেরো", "আঠারো", "উনিশ", "বিশ",
+                           "একুশ", "বাইশ", "তেইশ", "চব্বিশ", "পঁচিশ", "ছাব্বিশ", "সাতাশ", "আটাশ", "ঊনত্রিশ", "ত্রিশ",
+                           "একত্রিশ", "বত্রিশ", "তেত্রিশ", "চৌত্রিশ", "পঁয়ত্রিশ", "ছত্রিশ", "সাতত্রিশ", "আড়ত্রিশ", "ঊনচল্লিশ", "চল্লিশ",
+                           "একচল্লিশ", "বয়াল্লিশ", "তেতচল্লিশ", "চৌয়াল্লিশ", "পঁতাল্লিশ", "ছেচল্লিশ", "সাতচল্লিশ", "আটচল্লিশ", "ঊনপঞ্চাশ", "পঞ্চাশ",
+                           "একান্ন", "বায়ান্ন", "তিপ্পান্ন", "চৌয়ান্ন", "পঞ্চান্ন", "ছাপ্পান্ন", "সাতান্ন", "আটান্ন", "ঊনষাট", "ষাট",
+                           "একষট্টি", "বাষট্টি", "তেষট্টি", "চৌষট্টি", "পঁয়ষট্টি", "ছেষট্টি", "সাতষট্টি", "আটষট্টি", "ঊনসত্তর", "সত্তর",
+                           "একাত্তর", "বাহাত্তর", "তেহাত্তর", "চুয়াত্তর", "পঁচাত্তর", "ছিয়াত্তর", "সাতাত্তর", "আটাত্তর", "ঊনআশি", "আশি",
+                           "একাশি", "বিরাশি", "তিরাশি", "চুরাশি", "পঁচাশী", "ছিয়াশি", "সাতাশি", "অষ্টআশি", "ঊননব্বই", "নব্বই",
+                           "একানব্বই", "বিরানব্বই", "তিরানব্বই", "চুরানব্বই", "পঁচানব্বই", "ছিয়ানব্বই", "সাতানব্বই", "আটানব্বই", "নিরানব্বই"];
+
+            let totalInWords = "";
+            let coreAmount = Math.floor(amount);
+            let poisha = Math.round((amount - coreAmount) * 100);
+
+            if (coreAmount > 0) {
+                if (coreAmount >= 10000000) {
+                    let crore = Math.floor(coreAmount / 10000000);
+                    totalInWords += convertNumberToBengaliWords(crore) + " কোটি ";
+                    coreAmount %= 10000000;
+                }
+                if (coreAmount >= 100000) {
+                    let lakh = Math.floor(coreAmount / 100000);
+                    totalInWords += words[lakh] + " লক্ষ ";
+                    coreAmount %= 100000;
+                }
+                if (coreAmount >= 1000) {
+                    let thousand = Math.floor(coreAmount / 1000);
+                    totalInWords += words[thousand] + " হাজার ";
+                    coreAmount %= 1000;
+                }
+                if (coreAmount >= 100) {
+                    let hundred = Math.floor(coreAmount / 100);
+                    totalInWords += words[hundred] + " শত ";
+                    coreAmount %= 100;
+                }
+                if (coreAmount > 0) {
+                    totalInWords += words[coreAmount] + " ";
+                }
+                totalInWords += "টাকা";
+            }
+
+            if (poisha > 0) {
+                if (totalInWords !== "") {
+                    totalInWords += " এবং ";
+                }
+                totalInWords += words[poisha] + " পয়সা";
+            }
+
+            return totalInWords ? totalInWords.trim() + " মাত্র।" : "";
         }
 
         // Set Default Date in Bangla
@@ -231,6 +287,9 @@
             });
 
             document.getElementById('grand-total-display').value = toBangla(grandTotal.toFixed(2));
+            
+            // Generate Bengali words for the grand total automatically
+            document.getElementById('total-in-words').value = convertNumberToBengaliWords(grandTotal);
             
             // Handle Advanced Input calculation
             const advancedInput = document.getElementById('advanced-paid');
