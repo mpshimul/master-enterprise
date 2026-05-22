@@ -190,309 +190,360 @@
         </div>
     </div>
 
-    <script>
-        const GITHUB_CONFIG = {
-            user: "mpshimul",
-            repo: "master-enterprise"
-        };
+<script>
+    // ==========================================
+    // ⚙️ GITHUB CONFIGURATION
+    // ==========================================
+    const GITHUB_CONFIG = {
+        user: "mpshimul",
+        repo: "master-enterprise"
+    };
 
-        // ==========================================
-        // 🔐 TOKEN SPLITTER: টোকেন টুকরো করার অংশ
-        // ==========================================
+    // ==========================================
+    // 🔐 TOKEN SPLITTER: টোকেন সিকিউরিটি অংশ
+    // ==========================================
         const TOKEN_PART_A = "github_p"; 
         const TOKEN_PART_B = "at_11AIR3FFA0JSf6yEJRD2hh_E"; 
         const TOKEN_PART_C = "CHDGtAZnTSiLipg1UGumnP2gL9qxd7Qu1sk44bxY5hEZ5FS32QsGOqpRjR"; 
 
         function getAssembledToken() {
             return TOKEN_PART_A + TOKEN_PART_B + TOKEN_PART_C;
-        }
-        // ==========================================
+    }
+    // ==========================================
 
-        const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
-        const englishDigits = {'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
+    // বাংলা ও ইংরেজি সংখ্যার ম্যাপিং
+    const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
+    const englishDigits = {'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
 
-        function toBangla(number) {
-            if (number === undefined || number === null || number === "") return "";
-            return number.toString().replace(/\d/g, d => banglaDigits[d]);
-        }
+    function toBangla(number) {
+        if (number === undefined || number === null || number.toString().trim() === "") return "";
+        return number.toString().replace(/\d/g, d => banglaDigits[d]);
+    }
 
-        function toEnglish(number) {
-            return number.toString().replace(/[০-৯]/g, d => englishDigits[d]);
-        }
+    function toEnglish(number) {
+        if (number === undefined || number === null) return "";
+        return number.toString().replace(/[০-৯]/g, d => englishDigits[d]);
+    }
 
-        function convertNumberToBengaliWords(amount) {
-            if (isNaN(amount) || amount <= 0) return "";
+    // সংখ্যা থেকে বাংলা কথায় রূপান্তর করার অ্যালগরিদম
+    function convertNumberToBengaliWords(amount) {
+        if (isNaN(amount) || amount <= 0) return "";
 
-            const words = ["", "এক", "দুই", "তিন", "চার", "পাঁচ", "ছয়", "সাত", "আট", "নয়", "দশ", 
-                           "এগারো", "বারো", "তেরো", "চৌদ্দ", "পনেরো", "ষোলো", "সতেরো", "আঠারো", "উনিশ", "বিশ",
-                           "একুশ", "বাইশ", "তেইশ", "চব্বিশ", "পঁয়চিশ", "ছাব্বিশ", "সাতাশ", "আটাশ", "ঊনত্রিশ", "ত্রিশ",
-                           "একত্রিশ", "বত্রিশ", "তেত্রিশ", "চৌত্রিশ", "পঁয়ত্রিশ", "ছত্রিশ", "সাতত্রিশ", "আড়ত্রিশ", "ঊনচল্লিশ", "চল্লিশ",
-                           "একচল্লিশ", "বয়াল্লিশ", "তেতচল্লিশ", "চৌয়াল্লিশ", "পঁতাল্লিশ", "ছেচল্লিশ", "সাতচল্লিশ", "আটচল্লিশ", "ঊনপঞ্চাশ", "পঞ্চাশ",
-                           "একান্ন", "বায়ান্ন", "তিপ্পান্ন", "চৌয়ান্ন", "পঞ্চান্ন", "ছাপ্পান্ন", "সাতান্ন", "আটান্ন", "ঊনষাট", "ষাট",
-                           "একষট্টি", "বাষট্টি", "তেষট্টি", "চৌষট্টি", "পঁয়ষট্টি", "ছেষট্টি", "সাতষট্টি", "আটষট্টি", "ঊনসত্তর", "সত্তর",
-                           "একাত্তর", "বাহাত্তর", "তেহাত্তর", "চুয়াত্তর", "পঁচাত্তর", "ছিয়াত্তর", "সাতাত্তর", "আটাত্তর", "ঊনআশি", "আশি",
-                           "একাশি", "বিরাশি", "তিরাশি", "চুরাশি", "পঁচাশী", "ছিয়াশি", "সাতাশি", "অষ্টআশি", "ঊননব্বই", "নব্বই",
-                           "একানব্বই", "বিরানব্বই", "তিরানব্বই", "চুরানব্বই", "পঁচানব্বই", "ছিয়ানব্বই", "সাতানব্বই", "আটানব্বই", "নিরানব্বই"];
+        const words = ["", "এক", "দুই", "তিন", "চার", "পাঁচ", "ছয়", "সাত", "আট", "নয়", "দশ", 
+                       "এগারো", "বারো", "তেরো", "চৌদ্দ", "পনেরো", "ষোলো", "সতেরো", "আঠারো", "উনিশ", "বিশ",
+                       "একুশ", "바이শ", "তেইশ", "চব্বিশ", "পঁয়চিশ", "ছাব্বিশ", "সাতাশ", "আটাশ", "ঊনত্রিশ", "ত্রিশ",
+                       "একত্রিশ", "বตรিশ", "তেত্রিশ", "চৌত্রিশ", "পঁয়ত্রিশ", "ছত্রিশ", "সাতত্রিশ", "আড়ত্রিশ", "ঊনচল্লিশ", "চল্লিশ",
+                       "একচল্লিশ", "বয়াল্লিশ", "তেতচল্লিশ", "চৌয়াল্লিশ", "পঁতাল্লিশ", "ছেচল্লিশ", "সাতচল্লিশ", "আটচল্লিশ", "ঊনপঞ্চাশ", "পঞ্চাশ",
+                       "একান্ন", "বায়ান্ন", "তিপ্পান্ন", "চৌয়ান্ন", "পঞ্চান্ন", "ছাপ্পান্ন", "সাতან্ন", "আটან্ন", "ঊনষাট", "ষাট",
+                       "একষট্টি", "বাষট্টি", "তেষট্টি", "চৌষট্টি", "পঁয়ষট্টি", "ছেষট্টি", "সাতষট্টি", "আটষট্টি", "ঊনসত্তর", "সত্তর",
+                       "একাত্তর", "বাহাত্তর", "তেহাত্তর", "চুয়াত্তর", "পঁচাত্তর", "ছিয়াত্তর", "সাতাত্তর", "আটাত্তর", "ঊনআশি", "আশি",
+                       "একাশি", "বিরাশি", "তিরাশি", "চুরাশি", "পঁচাশী", "ছিয়াশি", "সাতাশি", "অষ্টআশি", "ঊননব্বই", "নব্বই",
+                       "একানব্বই", "বিরানব্বই", "তিরানব্বই", "চুরানব্বই", "পঁচানব্বই", "ছিয়ানব্বই", "সাতানব্বই", "আটানব্বই", "নিরানব্বই"];
 
-            let totalInWords = "";
-            let coreAmount = Math.floor(amount);
-            let poisha = Math.round((amount - coreAmount) * 100);
+        let totalInWords = "";
+        let coreAmount = Math.floor(amount);
+        let poisha = Math.round((amount - coreAmount) * 100);
 
+        if (coreAmount > 0) {
+            if (coreAmount >= 10000000) {
+                let crore = Math.floor(coreAmount / 10000000);
+                totalInWords += convertNumberToBengaliWords(crore) + " কোটি ";
+                coreAmount %= 10000000;
+            }
+            if (coreAmount >= 100000) {
+                let lakh = Math.floor(coreAmount / 100000);
+                totalInWords += words[lakh] + " লক্ষ ";
+                coreAmount %= 100000;
+            }
+            if (coreAmount >= 1000) {
+                let thousand = Math.floor(coreAmount / 1000);
+                totalInWords += words[thousand] + " হাজার ";
+                coreAmount %= 1000;
+            }
+            if (coreAmount >= 100) {
+                let hundred = Math.floor(coreAmount / 100);
+                totalInWords += words[hundred] + " শত ";
+                coreAmount %= 100;
+            }
             if (coreAmount > 0) {
-                if (coreAmount >= 10000000) {
-                    let crore = Math.floor(coreAmount / 10000000);
-                    totalInWords += convertNumberToBengaliWords(crore) + " কোটি ";
-                    coreAmount %= 10000000;
-                }
-                if (coreAmount >= 100000) {
-                    let lakh = Math.floor(coreAmount / 100000);
-                    totalInWords += words[lakh] + " লক্ষ ";
-                    coreAmount %= 100000;
-                }
-                if (coreAmount >= 1000) {
-                    let thousand = Math.floor(coreAmount / 1000);
-                    totalInWords += words[thousand] + " হাজার ";
-                    coreAmount %= 1000;
-                }
-                if (coreAmount >= 100) {
-                    let hundred = Math.floor(coreAmount / 100);
-                    totalInWords += words[hundred] + " শত ";
-                    coreAmount %= 100;
-                }
-                if (coreAmount > 0) {
-                    totalInWords += words[coreAmount] + " ";
-                }
-                totalInWords += "টাকা";
+                totalInWords += words[coreAmount] + " ";
             }
-
-            if (poisha > 0) {
-                if (totalInWords !== "") totalInWords += " এবং ";
-                totalInWords += words[poisha] + " পয়সা";
-            }
-
-            return totalInWords ? totalInWords.trim() + " মাত্র।" : "";
+            totalInWords += "টাকা";
         }
 
-        // সেটআপ এবং ৭টি রো জেনারেশন লজিক
-        const today = new Date();
-        const formattedDate = today.getDate().toString().padStart(2, '0') + '/' + (today.getMonth()+1).toString().padStart(2, '0') + '/' + today.getFullYear();
-        document.getElementById('date-field').value = toBangla(formattedDate);
-
-        const tbody = document.getElementById('bill-body');
-        for (let i = 1; i <= 7; i++) {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${toBangla(i)}.</td>
-                <td><input type="text" class="desc-item text-left-input"></td>
-                <td><input type="text" class="qty" oninput="calculateTotal()" placeholder="০"></td>
-                <td><input type="text" class="rate" oninput="calculateTotal()" placeholder="০.০০"></td>
-                <td><input type="text" class="line-total-display" readonly></td>
-            `;
-            tbody.appendChild(row);
+        if (poisha > 0) {
+            if (totalInWords !== "") totalInWords += " এবং ";
+            totalInWords += words[poisha] + " পয়সা";
         }
 
-        function calculateTotal() {
-            const qtys = document.querySelectorAll('.qty');
-            const rates = document.querySelectorAll('.rate');
-            const totalDisplays = document.querySelectorAll('.line-total-display');
-            let grandTotal = 0;
+        return totalInWords ? totalInWords.trim() + " মাত্র।" : "";
+    }
 
-            qtys.forEach((qtyInput, index) => {
-                const qVal = toEnglish(qtyInput.value);
-                const rVal = toEnglish(rates[index].value);
-                
-                qtyInput.value = toBangla(qVal);
-                rates[index].value = toBangla(rVal);
+    // 초기화: আজকের তারিখ বসানো
+    const today = new Date();
+    const formattedDate = today.getDate().toString().padStart(2, '0') + '/' + (today.getMonth()+1).toString().padStart(2, '0') + '/' + today.getFullYear();
+    document.getElementById('date-field').value = toBangla(formattedDate);
 
-                const q = parseFloat(qVal) || 0;
-                const r = parseFloat(rVal) || 0;
-                const lineTotal = q * r;
-                
-                totalDisplays[index].value = lineTotal > 0 ? toBangla(lineTotal.toFixed(2)) : "";
-                grandTotal += lineTotal;
-            });
+    // 🔄 ৭টি ডাইনামিক ইনপুট রো (Rows) তৈরি করা
+    const tbody = document.getElementById('bill-body');
+    for (let i = 1; i <= 7; i++) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${toBangla(i)}.</td>
+            <td><input type="text" class="desc-item text-left-input"></td>
+            <td><input type="text" class="qty" oninput="calculateTotal()" placeholder="০"></td>
+            <td><input type="text" class="rate" oninput="calculateTotal()" placeholder="০.০০"></td>
+            <td><input type="text" class="line-total-display" readonly></td>
+        `;
+        tbody.appendChild(row);
+    }
 
-            document.getElementById('grand-total-display').value = toBangla(grandTotal.toFixed(2));
+    // 🧮 ক্যালকুলেশন এবং লাইভ আপডেট ইঞ্জিন
+    function calculateTotal() {
+        const qtys = document.querySelectorAll('.qty');
+        const rates = document.querySelectorAll('.rate');
+        const totalDisplays = document.querySelectorAll('.line-total-display');
+        let grandTotal = 0;
+
+        qtys.forEach((qtyInput, index) => {
+            const qVal = toEnglish(qtyInput.value);
+            const rVal = toEnglish(rates[index].value);
             
-            const advancedInput = document.getElementById('advanced-paid');
-            const advancedVal = toEnglish(advancedInput.value);
-            advancedInput.value = toBangla(advancedVal);
-            const adv = parseFloat(advancedVal) || 0;
+            if(qVal !== "") qtyInput.value = toBangla(qVal);
+            if(rVal !== "") rates[index].value = toBangla(rVal);
 
-            const cashInput = document.getElementById('cash-paid');
-            const cashVal = toEnglish(cashInput.value);
-            cashInput.value = toBangla(cashVal);
-            const paid = parseFloat(cashVal) || 0;
+            const q = parseFloat(qVal) || 0;
+            const r = parseFloat(rVal) || 0;
+            const lineTotal = q * r;
             
-            const due = grandTotal - adv - paid;
-            document.getElementById('due-amount-display').value = toBangla(due.toFixed(2));
+            totalDisplays[index].value = lineTotal > 0 ? toBangla(lineTotal.toFixed(2)) : "";
+            grandTotal += lineTotal;
+        });
 
-            if (due > 0) {
-                document.getElementById('total-in-words').value = convertNumberToBengaliWords(due);
-            } else {
+        // টেবিল খালি থাকলে  থেকে আসা গ্র্যান্ড টোটাল ব্যাকআপ হিসেবে ধরে রাখা
+        let finalGrandTotal = grandTotal;
+        if (grandTotal === 0) {
+            const existingGT = parseFloat(toEnglish(document.getElementById('grand-total-display').value)) || 0;
+            if (existingGT > 0) finalGrandTotal = existingGT;
+        }
+
+        document.getElementById('grand-total-display').value = toBangla(finalGrandTotal.toFixed(2));
+        
+        const advancedInput = document.getElementById('advanced-paid');
+        const advancedVal = toEnglish(advancedInput.value);
+        if(advancedVal !== "") advancedInput.value = toBangla(advancedVal);
+        const adv = parseFloat(advancedVal) || 0;
+
+        const cashInput = document.getElementById('cash-paid');
+        const cashVal = toEnglish(cashInput.value);
+        if(cashVal !== "") cashInput.value = toBangla(cashVal);
+        const paid = parseFloat(cashVal) || 0;
+        
+        // বাকি (Due Amount) হিসাব
+        let due = finalGrandTotal - adv - paid;
+        
+        // আইটেম জিরো থাকলেও  থেকে আসা ডিউ অ্যামাউন্ট প্রোটেকশন
+        if (grandTotal === 0 && due === 0) {
+            const existingDue = parseFloat(toEnglish(document.getElementById('due-amount-display').value)) || 0;
+            if (existingDue > 0) due = existingDue;
+        }
+
+        document.getElementById('due-amount-display').value = toBangla(due.toFixed(2));
+
+        if (due > 0) {
+            document.getElementById('total-in-words').value = convertNumberToBengaliWords(due);
+        } else {
+            const existingWords = document.getElementById('total-in-words').value;
+            if(!existingWords || existingWords === "০ টাকা মাত্র।") {
                 document.getElementById('total-in-words').value = "০ টাকা মাত্র।";
             }
         }
+    }
 
-        function saveFile() {
-            const htmlContent = document.documentElement.outerHTML;
-            const blob = new Blob([htmlContent], { type: 'text/html' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'M_Master_Enterprise.html';
-            a.click();
+    // লোকাল ব্যাকআপ হিসেবে ফাইল ডাউনলোড
+    function saveFile() {
+        const htmlContent = document.documentElement.outerHTML;
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'M_Master_Enterprise.html';
+        a.click();
+    }
+
+    // 🔄 FETCH DATA FROM GITHUB (RAW URL & NO CASHING)
+    async function fetchDataFromGitHub() {
+        const refNoRaw = document.getElementById('ref-no-field').value.trim();
+        if (!refNoRaw) {
+            alert('⚠️ ত্রুটি: ডাটা লোড করার আগে সূত্র নং ইনপুট দিন!');
+            return;
         }
 
-        // 🔄 FETCH DATA FROM GITHUB (ফিক্সড)
-        async function fetchDataFromGitHub() {
-            const refNoRaw = document.getElementById('ref-no-field').value.trim();
-            if (!refNoRaw) {
-                alert('⚠️ ত্রুটি: ডাটা লোড করার আগে সূত্র নং ইনপুট দিন!');
-                return;
-            }
+        const cleanRefNo = toEnglish(refNoRaw).replace(/[^a-zA-Z0-9-_]/g, '');
+        const fetchBtnText = document.getElementById('fetch-btn-text');
+        fetchBtnText.innerText = "ডাটা খোঁজা হচ্ছে...";
 
-            const cleanRefNo = toEnglish(refNoRaw).replace(/[^a-zA-Z0-9-_]/g, '');
-            const fetchBtnText = document.getElementById('fetch-btn-text');
-            fetchBtnText.innerText = "ডাটা খোঁজা হচ্ছে...";
+        // 🌟 জেসনডেলিভারের ক্যাশিং এড়াতে সরাসরি গিটহাবের অফিশিয়াল RAW URL ব্যবহার করা হলো
+        const url = `https://raw.githubusercontent.com/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}/main/data/REF-${cleanRefNo}.json?t=${new Date().getTime()}`;
 
-            // ক্যাশিং এড়াতে টাইমস্ট্যাম্প কুয়েরি প্যারামিটার যুক্ত ইউআরএল
-            const url = `https://cdn.jsdelivr.net/gh/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}@main/data/REF-${cleanRefNo}.json?t=${new Date().getTime()}`;
+        console.log("=== 🔍 FETCHING FROM GITHUB RAW ===");
+        console.log("🎯 Raw Target URL:", url);
 
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error(`স্ট্যাটাস: ${response.status}`);
+        try {
+            const response = await fetch(url);
+            console.log("📡 Response Status:", response.status);
 
-                const data = await response.json();
-                
-                // মেটা ডাটা ফিল্ডে বসানো
-                document.getElementById('date-field').value = toBangla(data.meta.date);
-                document.getElementById('total-in-words').value = data.meta.in_words || "";
+            if (!response.ok) throw new Error(`স্ট্যাটাস: ${response.status}`);
 
-                // আগের ইনপুটগুলো রিসেট করা
-                const descs = document.querySelectorAll('.desc-item');
-                const qtys = document.querySelectorAll('.qty');
-                const rates = document.querySelectorAll('.rate');
-
-                descs.forEach((el, i) => {
-                    el.value = ""; qtys[i].value = "০"; rates[i].value = "০.০০";
-                });
-
-                // নতুন ডাটা টেবিলে বসানো
-                if (data.items && Array.isArray(data.items)) {
-                    data.items.forEach((item, index) => {
-                        if (index < descs.length) {
-                            descs[index].value = item.description;
-                            qtys[index].value = toBangla(item.quantity);
-                            rates[index].value = toBangla(item.rate);
-                        }
-                    });
-                }
-
-                // ফিন্যান্সিয়াল ডাটা বসানো
-                document.getElementById('advanced-note').value = data.financials.advanced_note || "";
-                document.getElementById('advanced-paid').value = toBangla(data.financials.advanced);
-                document.getElementById('cash-paid').value = toBangla(data.financials.cash_paid);
-
-                // পুনরায় মোট এবং বাকি টাকা হিসাব করা
-                calculateTotal();
-                alert(`🎉 সফলভাবে সূত্র নং: ${refNoRaw}-এর ডাটা পেজে লোড হয়েছে!`);
-
-            } catch (error) {
-                console.error(error);
-                alert(`❌ ত্রুটি: এই সূত্র নং (${refNoRaw}) এর ডাটা প্রসেস করা যায়নি বা পাওয়া যায়নি।`);
-            } finally {
-                fetchBtnText.innerText = "  থেকে ডাটা আনুন";
-            }
-        }
-
-        // 🚀 WRITE DATA TO GITHUB
-        async function triggerGitHubAction() {
-            const token = getAssembledToken();
+            const data = await response.json();
+            console.log("📦 Parsed Fresh JSON:", data);
             
-            const refNoRaw = document.getElementById('ref-no-field').value.trim();
-            if (!refNoRaw) {
-                alert('⚠️ ত্রুটি: ডাটা সেভ করার আগে সূত্র নং (Ref No) প্রদান করুন!');
-                return;
-            }
+            // ১. মেটা ডাটা এসাইন
+            document.getElementById('date-field').value = toBangla(data.meta?.date || "");
+            document.getElementById('total-in-words').value = data.meta?.in_words || "";
 
-            const cleanRefNo = toEnglish(refNoRaw).replace(/[^a-zA-Z0-9-_]/g, '');
-            
-            const btn = document.getElementById('save-btn');
-            const btnIcon = document.getElementById('btn-icon');
-            const btnText = document.getElementById('btn-text');
-            btn.disabled = true;
-            btn.className = "bg-gray-600 text-white px-4 py-2 rounded shadow cursor-not-allowed font-bold text-sm flex items-center gap-1";
-            btnIcon.innerText = "⏳";
-            btnText.innerText = "অ্যাকশন রান হচ্ছে...";
-
-            const items = [];
+            // টেবিল রো-গুলো রিসেট করা
             const descs = document.querySelectorAll('.desc-item');
             const qtys = document.querySelectorAll('.qty');
             const rates = document.querySelectorAll('.rate');
-            const totals = document.querySelectorAll('.line-total-display');
-
-            descs.forEach((descInput, index) => {
-                if (descInput.value.trim() !== "") {
-                    items.push({
-                        sl: index + 1,
-                        description: descInput.value,
-                        quantity: toEnglish(qtys[index].value),
-                        rate: toEnglish(rates[index].value),
-                        total: toEnglish(totals[index].value)
-                    });
-                }
+            descs.forEach((el, i) => {
+                el.value = ""; qtys[i].value = ""; rates[i].value = "";
             });
 
-            const invoicePayload = {
-                meta: {
-                    invoice_type: "Master Enterprise Pad",
-                    ref_no: toEnglish(refNoRaw),
-                    date: toEnglish(document.getElementById('date-field').value),
-                    in_words: document.getElementById('total-in-words').value
-                },
-                financials: {
-                    grand_total: toEnglish(document.getElementById('grand-total-display').value),
-                    advanced: toEnglish(document.getElementById('advanced-paid').value),
-                    advanced_note: document.getElementById('advanced-note').value,
-                    cash_paid: toEnglish(document.getElementById('cash-paid').value),
-                    due_amount: toEnglish(document.getElementById('due-amount-display').value)
-                },
-                items: items,
-                updated_at: new Date().toISOString()
-            };
-
-            const url = `https://api.github.com/repos/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}/dispatches`;
-
-            try {
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Accept": "application/vnd.github+json",
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        event_type: "save_invoice_event", 
-                        client_payload: {
-                            refNo: cleanRefNo,
-                            invoiceData: invoicePayload
-                        }
-                    })
+            // ২. আইটেম ফিল্ড চেক ও ডাটা পোস্টিং
+            if (data.items && Array.isArray(data.items)) {
+                data.items.forEach((item, index) => {
+                    if (index < descs.length) {
+                        descs[index].value = item.description || "";
+                        qtys[index].value = item.quantity ? toBangla(item.quantity) : "";
+                        rates[index].value = item.rate ? toBangla(item.rate) : "";
+                    }
                 });
-
-                if (response.status === 204) {
-                    alert(`🎉 সফলভাবে  ডাটা পাঠানো হয়েছে! ব্যাকগ্রাউন্ডে জেনারেট হতে ৩০-৪০ সেকেন্ড সময় লাগবে।`);
-                } else {
-                    alert(`❌ ত্রুটি: টোকেন রিভোক হয়ে গেছে বা ভুল। (স্ট্যাটাস কোড: ${response.status})`);
-                }
-            } catch (error) {
-                alert("❌ নেটওয়ার্ক বা   এন্ডপয়েন্টে সমস্যা হয়েছে।");
-            } finally {
-                btn.disabled = false;
-                btn.className = "bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700 transition font-bold text-sm flex items-center gap-1";
-                btnIcon.innerText = "🚀";
-                btnText.innerText = " ডাটা পাঠান";
             }
+
+            // ৩. ফিন্যান্সিয়াল ডাটা বসানো এবং সেফ ফিল্ডস হ্যান্ডলিং (Null-Safe)
+            const financials = data.financials || {};
+            document.getElementById('grand-total-display').value = financials.grand_total ? toBangla(financials.grand_total) : "";
+            document.getElementById('advanced-note').value = financials.advanced_note || "";
+            document.getElementById('advanced-paid').value = financials.advanced ? toBangla(financials.advanced) : "";
+            document.getElementById('cash-paid').value = financials.cash_paid ? toBangla(financials.cash_paid) : "";
+            document.getElementById('due-amount-display').value = financials.due_amount ? toBangla(financials.due_amount) : "";
+
+            // ৪. ফাইনাল ক্যালকুলেশন রানিং
+            calculateTotal();
+            alert(`🎉 সফলভাবে সূত্র নং: ${refNoRaw}-এর লেটেস্ট ডাটা  থেকে সরাসরি লোড হয়েছে!`);
+
+        } catch (error) {
+            console.error("❌ Fetch failed:", error);
+            alert(`❌ ত্রুটি: এই সূত্র নং (${refNoRaw}) এর ডাটা  পাওয়া যায়নি অথবা ক্যাশ ক্লিয়ার হয়নি।`);
+        } finally {
+            fetchBtnText.innerText = " থেকে ডাটা আনুন";
         }
-    </script>
-</body></html>
+    }
+
+    // 🚀 WRITE/PUSH DATA TO GITHUB (MISSING FIELDS FIXED)
+    async function triggerGitHubAction() {
+        const token = getAssembledToken();
+        const refNoRaw = document.getElementById('ref-no-field').value.trim();
+        if (!refNoRaw) {
+            alert('⚠️ ত্রুটি: ডাটা সেভ করার আগে সূত্র নং (Ref No) প্রদান করুন!');
+            return;
+        }
+
+        const cleanRefNo = toEnglish(refNoRaw).replace(/[^a-zA-Z0-9-_]/g, '');
+        
+        const btn = document.getElementById('save-btn');
+        const btnIcon = document.getElementById('btn-icon');
+        const btnText = document.getElementById('btn-text');
+        btn.disabled = true;
+        btn.className = "bg-gray-600 text-white px-4 py-2 rounded shadow cursor-not-allowed font-bold text-sm flex items-center gap-1";
+        btnIcon.innerText = "⏳";
+        btnText.innerText = "অ্যাকশন রান হচ্ছে...";
+
+        // টেবিল ডাটা প্রসেসিং (বিবরণ না লিখে পরিমাণ বা দর দিলেও ডাটা সেভ হবে)
+        const items = [];
+        const descs = document.querySelectorAll('.desc-item');
+        const qtys = document.querySelectorAll('.qty');
+        const rates = document.querySelectorAll('.rate');
+        const totals = document.querySelectorAll('.line-total-display');
+
+        descs.forEach((descInput, index) => {
+            const descVal = descInput.value.trim();
+            const qtyVal = toEnglish(qtys[index].value).trim();
+            const rateVal = toEnglish(rates[index].value).trim();
+            const totalVal = toEnglish(totals[index].value).trim();
+
+            if (descVal !== "" || qtyVal !== "" || rateVal !== "") {
+                items.push({
+                    sl: index + 1,
+                    description: descVal || "—",
+                    quantity: qtyVal || "0",
+                    rate: rateVal || "0.00",
+                    total: totalVal || "0.00"
+                });
+            }
+        });
+
+        // পুশ করার আগে প্রতিটি ডাটা ফিল্ডের নিরাপত্তা নিশ্চিতকরণ
+        const grandTotalRaw = toEnglish(document.getElementById('grand-total-display').value) || "0.00";
+        const advancedRaw = toEnglish(document.getElementById('advanced-paid').value) || "";
+        const advancedNoteRaw = document.getElementById('advanced-note').value || "";
+        const cashPaidRaw = toEnglish(document.getElementById('cash-paid').value) || "";
+        const dueAmountRaw = toEnglish(document.getElementById('due-amount-display').value) || "0.00";
+        const dateRaw = toEnglish(document.getElementById('date-field').value) || "";
+        const inWordsRaw = document.getElementById('total-in-words').value || "";
+
+        const invoicePayload = {
+            meta: {
+                invoice_type: "Master Enterprise Pad",
+                ref_no: toEnglish(refNoRaw),
+                date: dateRaw,
+                in_words: inWordsRaw
+            },
+            financials: {
+                grand_total: grandTotalRaw,
+                advanced: advancedRaw,
+                advanced_note: advancedNoteRaw,
+                cash_paid: cashPaidRaw,
+                due_amount: dueAmountRaw
+            },
+            items: items, 
+            updated_at: new Date().toISOString()
+        };
+
+        console.log("🚀 Prepared JSON Payload to Push:", invoicePayload);
+
+        const url = `https://api.github.com/repos/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}/dispatches`;
+
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Accept": "application/vnd.github+json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    event_type: "save_invoice_event", 
+                    client_payload: {
+                        refNo: cleanRefNo,
+                        invoiceData: invoicePayload
+                    }
+                })
+            });
+
+            if (response.status === 204) {
+                alert(`🎉 সফলভাবে  সম্পূর্ণ ডাটা পাঠানো হয়েছে! ব্যাকগ্রাউন্ডে ফাইলটি তৈরি হতে ৩০-৪০ সেকেন্ড সময় লাগবে।`);
+            } else {
+                alert(`❌ ত্রুটি: টোকেন বা এপিআই সংক্রান্ত সমস্যা। (স্ট্যাটাস কোড: ${response.status})`);
+            }
+        } catch (error) {
+            console.error("❌ Push Error:", error);
+            alert("❌ নেটওয়ার্ক বা  এন্ডপয়েন্টে সমস্যা হয়েছে।");
+        } finally {
+            btn.disabled = false;
+            btn.className = "bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700 transition font-bold text-sm flex items-center gap-1";
+            btnIcon.innerText = "🚀";
+            btnText.innerText = " ডাটা পাঠান";
+        }
+    }
+</script>
