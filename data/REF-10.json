@@ -3,15 +3,15 @@
     "advanced": "",
     "advanced_note": "",
     "cash_paid": "",
-    "due_amount": "390032.00",
-    "grand_total": "390032.00"
+    "due_amount": "22800.00",
+    "grand_total": "22800.00"
   },
   "items": [],
   "meta": {
     "date": "22/05/2026",
-    "in_words": "তিন লক্ষ নব্বই হাজার বত্রিশ টাকা মাত্র।",
+    "in_words": "বাইশ হাজার আট শত টাকা মাত্র।",
     "invoice_type": "Master Enterprise Pad",
     "ref_no": "10"
   },
-  "updated_at": "2026-05-22T15:01:17.514Z"
+  "updated_at": "2026-05-22T15:07:45.474Z"
 }
