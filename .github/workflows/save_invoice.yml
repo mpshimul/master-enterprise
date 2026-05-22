@@ -16,8 +16,9 @@ jobs:
 
       - name: Write Invoice JSON File
         run: |
-          # ফ্রন্টএন্ড থেকে পাঠানো ডাটাটি এখানে রিসিভ করা হচ্ছে
-          echo '${{ json.encode(github.event.client_payload.invoiceData) }}' > data/REF-${{ github.event.client_payload.refNo }}.json
+          cat << 'EOF' > data/REF-${{ github.event.client_payload.refNo }}.json
+          ${{ toJson(github.event.client_payload.invoiceData) }}
+          EOF
 
       - name: Commit and Push Changes
         run: |
@@ -25,7 +26,6 @@ jobs:
           git config --global user.email "actions@github.com"
           git add data/
           
-          # ফাইলটি নতুন নাকি আপডেট হচ্ছে তা চেক করে কমিট করা
           if git diff-index --quiet HEAD --; then
             echo "No changes detected."
           else
