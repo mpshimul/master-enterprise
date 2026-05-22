@@ -3,16 +3,16 @@
     "advanced": "1500",
     "advanced_note": "২২ মে ২০২৬",
     "cash_paid": "250000",
-    "due_amount": "71900.00",
-    "grand_total": "323400.00"
+    "due_amount": "2981150.00",
+    "grand_total": "3232650.00"
   },
   "items": [
     {
       "description": "ফোন",
-      "quantity": "150",
+      "quantity": "1500",
       "rate": "2155",
       "sl": 1,
-      "total": "323250.00"
+      "total": "3232500.00"
     },
     {
       "description": "টিভি",
@@ -24,9 +24,9 @@
   ],
   "meta": {
     "date": "22/05/2026",
-    "in_words": "একাত্তর হাজার নয় শত টাকা মাত্র।",
+    "in_words": "ঊনত্রিশ লক্ষ একাশি হাজার এক শত পঞ্চাশ টাকা মাত্র।",
     "invoice_type": "Master Enterprise Pad",
     "ref_no": "10"
   },
-  "updated_at": "2026-05-22T17:45:29.461Z"
+  "updated_at": "2026-05-22T17:52:16.809Z"
 }
