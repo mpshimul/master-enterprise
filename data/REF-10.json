@@ -1,17 +1,17 @@
 {
   "financials": {
     "advanced": "",
-    "advanced_note": "",
+    "advanced_note": "২২ মে ২০২৬",
     "cash_paid": "",
-    "due_amount": "22800.00",
-    "grand_total": "22800.00"
+    "due_amount": "53400.00",
+    "grand_total": "53400.00"
   },
   "items": [],
   "meta": {
     "date": "22/05/2026",
-    "in_words": "বাইশ হাজার আট শত টাকা মাত্র।",
+    "in_words": "তিপ্পান্ন হাজার চার শত টাকা মাত্র।",
     "invoice_type": "Master Enterprise Pad",
     "ref_no": "10"
   },
-  "updated_at": "2026-05-22T15:07:45.474Z"
+  "updated_at": "2026-05-22T15:17:02.730Z"
 }
