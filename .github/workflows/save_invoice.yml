@@ -16,8 +16,10 @@ jobs:
 
       - name: Write Invoice JSON File
         run: |
-          # ফ্রন্টএন্ড থেকে পাঠানো ডাটাটি এখানে রিসিভ করা হচ্ছে
-          echo '${{ json.encode(github.event.client_payload.invoiceData) }}' > data/REF-${{ github.event.client_payload.refNo }}.json
+          # toJson() ব্যবহার করে ক্লায়েন্ট পেলোডকে সঠিকভাবে JSON ফাইলে কনভার্ট করা হচ্ছে
+          cat << 'EOF' > data/REF-${{ github.event.client_payload.refNo }}.json
+          ${{ toJson(github.event.client_payload.invoiceData) }}
+          EOF
 
       - name: Commit and Push Changes
         run: |
@@ -29,6 +31,6 @@ jobs:
           if git diff-index --quiet HEAD --; then
             echo "No changes detected."
           else
-            git commit -m "Auto-saved Invoice Data | Ref: ${{ github.event.client_payload.refNo }}"
+            git commit -m "Auto-saved Invoice Data | Ref: ${{\ { github.event.client_payload.refNo } \}}"
             git push
           fi
