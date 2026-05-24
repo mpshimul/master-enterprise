@@ -1,0 +1,67 @@
+{
+  "financials": {
+    "advanced": "339300",
+    "advanced_note": "১৮ মে ২০২৬",
+    "cash_paid": "",
+    "due_amount": "",
+    "grand_total": ""
+  },
+  "items": [
+    {
+      "description": "হাফ ইঞ্চি পাথর (সি এফ টি)",
+      "quantity": "516",
+      "rate": "175",
+      "sl": 1,
+      "total": ""
+    },
+    {
+      "description": "হাফ ইঞ্চি পাথর (সি এফ টি)",
+      "quantity": "550",
+      "rate": "175",
+      "sl": 2,
+      "total": ""
+    },
+    {
+      "description": "হাফ ইঞ্চি পাথর (সি এফ টি)",
+      "quantity": "612",
+      "rate": "175",
+      "sl": 3,
+      "total": ""
+    },
+    {
+      "description": "হাফ ইঞ্চি পাথর (সি এফ টি)",
+      "quantity": "674",
+      "rate": "175",
+      "sl": 4,
+      "total": ""
+    },
+    {
+      "description": "৩/৪ ইঞ্চি পাথর (সি এফ টি)",
+      "quantity": "50",
+      "rate": "150",
+      "sl": 5,
+      "total": ""
+    },
+    {
+      "description": "৩/৪ ইঞ্চি পাথর গাড়ি ভাড়া, লোড/আনলোড",
+      "quantity": "1",
+      "rate": "4000",
+      "sl": 6,
+      "total": ""
+    },
+    {
+      "description": "বিডি বালি - রানীপুর, (গাড়ি )",
+      "quantity": "1",
+      "rate": "6800",
+      "sl": 7,
+      "total": ""
+    }
+  ],
+  "meta": {
+    "date": "22/05/2026",
+    "in_words": "",
+    "invoice_type": "Master Enterprise Pad",
+    "ref_no": "2522"
+  },
+  "updated_at": "2026-05-24T10:13:44.985Z"
+}
