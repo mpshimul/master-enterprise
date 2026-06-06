@@ -1,0 +1,46 @@
+{
+  "financials": {
+    "advanced": "",
+    "advanced_note": "",
+    "cash_paid": "",
+    "due_amount": "232346.00",
+    "grand_total": "232346.00"
+  },
+  "items": [
+    {
+      "description": "শাহ স্পেশাল সিমেন্ট  (বস্তা)",
+      "quantity": "100",
+      "rate": "510",
+      "sl": 1,
+      "total": "51000.00"
+    },
+    {
+      "description": "ইটা  পিকেট  (পিছ)",
+      "quantity": "10000",
+      "rate": "11.8",
+      "sl": 2,
+      "total": "118000.00"
+    },
+    {
+      "description": "KSML- রড ১০ মি.লি  (কেজি)  ভাড়া সহ",
+      "quantity": "507.3",
+      "rate": "89.5",
+      "sl": 3,
+      "total": "45403.35"
+    },
+    {
+      "description": "Anwar Ispat রড ২মি.লি  (কেজি) ভাড়া সহ",
+      "quantity": "191.9",
+      "rate": "93.5",
+      "sl": 4,
+      "total": "17942.65"
+    }
+  ],
+  "meta": {
+    "date": "06/06/2026",
+    "in_words": "দুই লক্ষ বตรিশ হাজার তিন শত ছেচল্লিশ টাকা মাত্র।",
+    "invoice_type": "Master Enterprise Pad",
+    "ref_no": "0601-04"
+  },
+  "updated_at": "2026-06-06T13:36:23.113Z"
+}
