@@ -1,0 +1,26 @@
+{
+  "financials": {
+    "advanced": "15220",
+    "advanced_note": "",
+    "cash_paid": "",
+    "due_amount": "112780.00",
+    "grand_total": "128000.00"
+  },
+  "items": [
+    {
+      "description": "TV",
+      "quantity": "5",
+      "rate": "25600",
+      "sl": 1,
+      "total": "128000.00"
+    }
+  ],
+  "meta": {
+    "date": "05/07/2026",
+    "in_words": "এক লক্ষ বারো হাজার সাত শত আশি টাকা মাত্র।",
+    "invoice_type": "Master Enterprise Pad",
+    "location": "Rajendrapur cantt",
+    "ref_no": "501"
+  },
+  "updated_at": "2026-07-05T06:56:27.990Z"
+}
