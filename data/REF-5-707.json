@@ -1,0 +1,39 @@
+{
+  "financials": {
+    "advanced": "",
+    "advanced_note": "",
+    "cash_paid": "",
+    "due_amount": "108295.00",
+    "grand_total": "108295.00"
+  },
+  "items": [
+    {
+      "description": "প্লাস্টার ভালো (মোটা) সিএফটি",
+      "quantity": "2000",
+      "rate": "32",
+      "sl": 1,
+      "total": "64000.00"
+    },
+    {
+      "description": "শাহ সিমেন্ট স্পেশাল (বস্তা)",
+      "quantity": "50",
+      "rate": "510",
+      "sl": 2,
+      "total": "25500.00"
+    },
+    {
+      "description": "KSML রড ১২ মিলি ভাড়াসহ  (কেজি)",
+      "quantity": "210",
+      "rate": "89.5",
+      "sl": 3,
+      "total": "18795.00"
+    }
+  ],
+  "meta": {
+    "date": "05/07/2026",
+    "in_words": "এক লক্ষ আট হাজার দুই শত পঁচানব্বই টাকা মাত্র।",
+    "invoice_type": "Master Enterprise Pad",
+    "ref_no": "5-707"
+  },
+  "updated_at": "2026-07-05T05:02:05.200Z"
+}
