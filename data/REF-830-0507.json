@@ -1,0 +1,32 @@
+{
+  "financials": {
+    "advanced": "",
+    "advanced_note": "",
+    "cash_paid": "",
+    "due_amount": "0.00",
+    "grand_total": "0.00"
+  },
+  "items": [
+    {
+      "description": "সয়েল কম্প্যাক্টর",
+      "quantity": "0",
+      "rate": "0.00",
+      "sl": 1,
+      "total": "0.00"
+    },
+    {
+      "description": "৩০ জুন থেকে ৫ জুলাই  (দিন)",
+      "quantity": "0",
+      "rate": "0.00",
+      "sl": 2,
+      "total": "0.00"
+    }
+  ],
+  "meta": {
+    "date": "05/07/2026",
+    "in_words": "",
+    "invoice_type": "Master Enterprise Pad",
+    "ref_no": "8,30-05,07"
+  },
+  "updated_at": "2026-07-05T05:34:20.528Z"
+}
