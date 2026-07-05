@@ -88,9 +88,6 @@
             max-height: 100px;
             margin-top: 5px;
         }
-		.top {
-			margin-bottom: 0.5rem !important;
-		}
     </style>
 </head>
 <body>
@@ -132,13 +129,14 @@
                 <p class="font-bold text-gray-800">প্রোপ্রাইটর: মোঃ রাসেল রানা</p>
             </div>
         </div>
-        <div class="top flex justify-between mb-6 relative z-10 font-semibold">
+        <div class="top flex justify-between mb-2 relative z-10 font-semibold">
             <div class="flex gap-2">সূত্র নং: <input type="text" id="ref-no-field" class="border-b border-gray-300 w-40 text-left-input" placeholder="উদাঃ ১০"></div>
             <div class="flex gap-2">তারিখ: <input type="text" id="date-field" class="border-b border-gray-300 w-40 text-left-input"></div>
         </div>
-		<div class="top flex justify-between mb-6 relative z-10 font-semibold">
-            <div class="flex gap-2">সরবরাহের স্থান: <input type="text" id="location-field" class="border-b border-gray-300 w-80 text-left-input" placeholder=""></div>
-		</div>
+		<div class="mb-2 relative z-10 flex gap-2">
+            <span class="whitespace-nowrap font-bold">সরবরাহের স্থান:</span>
+            <input type="text" id="location-data" class="border-b border-dashed border-gray-400 flex-grow text-left-input" placeholder="">
+        </div>
 
         <div class="relative z-10">
             <table class="w-full mb-6">
@@ -174,12 +172,12 @@
             </table>
         </div>
 
-        <div class="mb-20 relative z-10 flex gap-2">
+        <div class="mb-2 relative z-10 flex gap-2">
             <span class="whitespace-nowrap font-bold">কথায় (বাকি টাকা):</span>
             <input type="text" id="total-in-words" class="border-b border-dashed border-gray-400 flex-grow text-left-input" placeholder="বাকি টাকা কথায় স্বয়ংক্রিয়ভাবে লেখা হবে..." readonly="">
         </div>
 
-        <div class="absolute bottom-16 left-15 right-15 flex justify-between items-end relative z-10 mt-24" style="margin-top: -40px;">
+        <div class="absolute bottom-16 left-15 right-15 flex justify-between items-end relative z-10 mt-10">
             <div class="text-center">
                 <div class="border-t border-gray-400 w-48 mb-1"></div>
                 <p class="text-sm font-semibold">ক্রেতার স্বাক্ষর</p>
@@ -239,7 +237,7 @@
                        "একুশ", "바이শ", "তেইশ", "চব্বিশ", "পঁয়চিশ", "ছাব্বিশ", "সাতাশ", "আটাশ", "ঊনত্রিশ", "ত্রিশ",
                        "একত্রিশ", "বত্রিশ", "তেত্রিশ", "চৌত্রিশ", "পঁয়ত্রিশ", "ছত্রিশ", "সাতত্রিশ", "আড়ত্রিশ", "ঊনচল্লিশ", "চল্লিশ",
                        "একচল্লিশ", "বয়াল্লিশ", "তেতচল্লিশ", "চৌয়াল্লিশ", "পঁতাল্লিশ", "ছেচল্লিশ", "সাতচল্লিশ", "আটচল্লিশ", "ঊনপঞ্চাশ", "পঞ্চাশ",
-                       "একান্ন", "বায়ান্ন", "তিপ্পান্ন", "চৌয়ান্ন", "পঞ্চান্ন", "ছাপ্পান্ন", "সাতან্ন", "আটან্ন", "ঊনষাট", "ষাট",
+                       "একান্ন", "বায়ান্ন", "তিপ্পান্ন", "চৌয়ান্ন", "পঞ্চান্ন", "ছাপ্পান্ন", "সাতান্ন", "আটান্ন", "ঊনষাট", "ষাট",
                        "একষট্টি", "বাষট্টি", "তেষট্টি", "চৌষট্টি", "পঁয়ষট্টি", "ছেষট্টি", "সাতষট্টি", "আটষট্টি", "ঊনসত্তর", "সত্তর",
                        "একাত্তর", "বাহাত্তর", "তেহাত্তর", "চুয়াত্তর", "পঁচাত্তর", "ছিয়াত্তর", "সাতাত্তর", "আটাত্তর", "ঊনআশি", "আশি",
                        "একাশি", "বিরাশি", "তিরাশি", "চুরাশি", "পঁচাশী", "ছিয়াশি", "সাতাশি", "অষ্টআশি", "ঊননব্বই", "নব্বই",
@@ -405,6 +403,8 @@
             // ১. মেটা ডাটা এসাইন
             document.getElementById('date-field').value = toBangla(data.meta?.date || "");
             document.getElementById('total-in-words').value = data.meta?.in_words || "";
+            // 👈 ADDED: location-data field – restore from meta.location
+            document.getElementById('location-data').value = data.meta?.location || "";
 
             // টেবিল রো-গুলো রিসেট করা
             const descs = document.querySelectorAll('.desc-item');
@@ -496,13 +496,16 @@
         const dueAmountRaw = toEnglish(document.getElementById('due-amount-display').value) || "0.00";
         const dateRaw = toEnglish(document.getElementById('date-field').value) || "";
         const inWordsRaw = document.getElementById('total-in-words').value || "";
+        // 👈 ADDED: location-data field – read the value
+        const locationRaw = document.getElementById('location-data').value || "";
 
         const invoicePayload = {
             meta: {
                 invoice_type: "Master Enterprise Pad",
                 ref_no: toEnglish(refNoRaw),
                 date: dateRaw,
-                in_words: inWordsRaw
+                in_words: inWordsRaw,
+                location: locationRaw   // 👈 ADDED: location-data field included here
             },
             financials: {
                 grand_total: grandTotalRaw,
