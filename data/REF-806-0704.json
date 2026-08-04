@@ -1,0 +1,33 @@
+{
+  "financials": {
+    "advanced": "",
+    "advanced_note": "",
+    "cash_paid": "",
+    "due_amount": "19500.00",
+    "grand_total": "19500.00"
+  },
+  "items": [
+    {
+      "description": "সয়েল কম্প্যাক্টর ৬ জুন",
+      "quantity": "1",
+      "rate": "12000",
+      "sl": 1,
+      "total": "12000.00"
+    },
+    {
+      "description": "” ৭ জুন (৩ ঘন্টা) এবং ২ জুন (২ঘন্টা)  ৩+২=",
+      "quantity": "5",
+      "rate": "1500",
+      "sl": 2,
+      "total": "7500.00"
+    }
+  ],
+  "meta": {
+    "date": "04/08/2026",
+    "in_words": "উনিশ হাজার পাঁচ শত টাকা মাত্র।",
+    "invoice_type": "Master Enterprise Pad",
+    "location": " বাউনী, শ্রীপুর।",
+    "ref_no": "806-0704"
+  },
+  "updated_at": "2026-08-04T05:29:32.190Z"
+}
