@@ -1,0 +1,54 @@
+{
+  "financials": {
+    "advanced": "",
+    "advanced_note": "",
+    "cash_paid": "",
+    "due_amount": "205400.00",
+    "grand_total": "205400.00"
+  },
+  "items": [
+    {
+      "description": "পাথর  থ্রি-ফোর ডাউন (১৯ মিমি)",
+      "quantity": "306",
+      "rate": "205",
+      "sl": 1,
+      "total": "62730.00"
+    },
+    {
+      "description": "পাথর-  ৫/৮\" (১৬ মিমি)",
+      "quantity": "306",
+      "rate": "195",
+      "sl": 2,
+      "total": "59670.00"
+    },
+    {
+      "description": "​পাথর আনলোডিং / ড্রাম ট্রাক ভাড়া (৫ ঘন্টা)",
+      "quantity": "5",
+      "rate": "1000",
+      "sl": 3,
+      "total": "5000.00"
+    },
+    {
+      "description": "পাথর আনলোডিং / লেবার খরচ(চুক্তি) ৩০০০",
+      "quantity": "1",
+      "rate": "3000",
+      "sl": 4,
+      "total": "3000.00"
+    },
+    {
+      "description": "১ নম্বর পিকেট ইট (১গাড়ি)",
+      "quantity": "6000",
+      "rate": "12.5",
+      "sl": 6,
+      "total": "75000.00"
+    }
+  ],
+  "meta": {
+    "date": "28/09/2026",
+    "in_words": "দুই লক্ষ পাঁচ হাজার চার শত টাকা মাত্র।",
+    "invoice_type": "Master Enterprise Pad",
+    "location": "রানিপুর, ভবানীপুর, গাজীপুর সদর। ",
+    "ref_no": "03051028"
+  },
+  "updated_at": "2026-09-28T08:25:21.218Z"
+}
