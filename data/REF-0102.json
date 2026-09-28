@@ -1,0 +1,51 @@
+{
+  "financials": {
+    "advanced": "",
+    "advanced_note": "",
+    "cash_paid": "",
+    "due_amount": "300680.00",
+    "grand_total": "300680.00"
+  },
+  "items": [
+    {
+      "date": "15-08-12",
+      "description": "পাথর -৩/৪\" ডাউন  (১৯ মিমি)  ২গাড়ি",
+      "quantity": "1086",
+      "rate": "205",
+      "sl": 1,
+      "total": "222630.00"
+    },
+    {
+      "date": "",
+      "description": "পাথর - ৫/৮\" (১৬ মিমি)",
+      "quantity": "390",
+      "rate": "195",
+      "sl": 2,
+      "total": "76050.00"
+    },
+    {
+      "date": "",
+      "description": "রানীপুর হতে বাউনী রি-রুট — ১৯ মিমি পাথর",
+      "quantity": "0",
+      "rate": "0.00",
+      "sl": 3,
+      "total": "0.00"
+    },
+    {
+      "date": "",
+      "description": ">  অতিরিক্ত গাড়ি ভাড়া  ২০০০টাকা",
+      "quantity": "1",
+      "rate": "2000",
+      "sl": 4,
+      "total": "2000.00"
+    }
+  ],
+  "meta": {
+    "date": "28/09/2026",
+    "in_words": "তিন লক্ষ ছয় শত আশি টাকা মাত্র।",
+    "invoice_type": "Master Enterprise Pad",
+    "location": "শরীফ বাজার,  বাউনি, গোসিংগা, শ্রীপুর। ",
+    "ref_no": "0102"
+  },
+  "updated_at": "2026-09-28T10:13:02.575Z"
+}
