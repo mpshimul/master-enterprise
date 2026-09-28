@@ -13,10 +13,11 @@
         }
         .pad-container {
             background-color: white;
-            width: 210mm;
-            min-height: 297mm;
+            width: 215mm;
+            min-height: 275mm;
+			max-height: 279mm;
             margin: 0 auto;
-            padding: 40px;
+            padding: 50px;
             box-shadow: 0 0 15px rgba(0,0,0,0.1);
             position: relative;
             box-sizing: border-box;
@@ -143,29 +144,30 @@
                 <thead>
                     <tr>
                         <th class="w-12">ক্রঃ নং</th>
+                        <th style="width: 6rem;">তারিখ</th>
                         <th>বিবরণ</th>
-                        <th class="w-28">পরিমাণ</th>
-                        <th class="w-28">দর</th>
-                        <th class="w-36">টাকা</th>
+                        <th class="w-20">পরিমাণ</th>
+                        <th class="w-20">দর</th>
+                        <th style="width: 8rem;">টাকা</th>
                     </tr>
                 </thead>
                 <tbody id="bill-body"></tbody>
                 <tfoot class="bg-gray-50">
                     <tr>
-                        <td colspan="4" class="text-right font-bold py-3 px-4 uppercase text-sm">মোট টাকা -</td>
+                        <td colspan="5" class="text-right font-bold py-3 px-4 uppercase text-sm">মোট টাকা -</td>
                         <td class="font-bold text-blue-900"><input type="text" id="grand-total-display" readonly="" class="font-bold text-blue-900"></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="text" id="advanced-note" class="text-right text-right-input" placeholder="অগ্রিম মন্তব্য..."></td>
+                        <td colspan="3"><input type="text" id="advanced-note" class="text-right text-right-input" placeholder="অগ্রিম মন্তব্য..."></td>
                         <td colspan="2" class="text-right font-bold py-3 px-4 uppercase text-sm text-amber-600">অগ্রিম -</td>
                         <td><input type="text" id="advanced-paid" oninput="calculateTotal()" placeholder="০" class="font-bold text-amber-600"></td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="text-right font-bold py-3 px-4 uppercase text-sm">জমা -</td>
+                        <td colspan="5" class="text-right font-bold py-3 px-4 uppercase text-sm">জমা -</td>
                         <td><input type="text" id="cash-paid" oninput="calculateTotal()" placeholder="০"></td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="text-right font-bold py-3 px-4 uppercase text-sm text-red-600">বাকি -</td>
+                        <td colspan="5" class="text-right font-bold py-3 px-4 uppercase text-sm text-red-600">বাকি -</td>
                         <td><input type="text" id="due-amount-display" readonly="" class="font-bold text-red-600"></td>
                     </tr>
                 </tfoot>
@@ -293,6 +295,7 @@
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${toBangla(i)}.</td>
+            <td><input type="text" class="" oninput="calculateTotal()" placeholder="০"></td>
             <td><input type="text" class="desc-item text-left-input"></td>
             <td><input type="text" class="qty" oninput="calculateTotal()" placeholder="০"></td>
             <td><input type="text" class="rate" oninput="calculateTotal()" placeholder="০.০০"></td>
