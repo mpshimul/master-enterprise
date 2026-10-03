@@ -3,8 +3,8 @@
     "advanced": "",
     "advanced_note": "",
     "cash_paid": "",
-    "due_amount": "205400.00",
-    "grand_total": "205400.00"
+    "due_amount": "281800.00",
+    "grand_total": "281800.00"
   },
   "items": [
     {
@@ -41,14 +41,28 @@
       "rate": "12.5",
       "sl": 5,
       "total": "75000.00"
+    },
+    {
+      "description": "প্লাস্টার বালি (মোটা)   (গাড়ি)",
+      "quantity": "1",
+      "rate": "1400",
+      "sl": 6,
+      "total": "1400.00"
+    },
+    {
+      "description": "১ নম্বর  ইট (১গাড়ি)",
+      "quantity": "6000",
+      "rate": "12.5",
+      "sl": 7,
+      "total": "75000.00"
     }
   ],
   "meta": {
     "date": "28/09/2026",
-    "in_words": "দুই লক্ষ পাঁচ হাজার চার শত টাকা মাত্র।",
+    "in_words": "দুই লক্ষ একাশি হাজার আট শত টাকা মাত্র।",
     "invoice_type": "Master Enterprise Pad",
     "location": "রানিপুর, ভবানীপুর, গাজীপুর সদর। ",
     "ref_no": "03051028"
   },
-  "updated_at": "2026-09-28T11:50:36.076Z"
+  "updated_at": "2026-10-03T17:17:39.320Z"
 }
