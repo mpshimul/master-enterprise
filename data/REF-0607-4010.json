@@ -1,0 +1,33 @@
+{
+  "financials": {
+    "advanced": "",
+    "advanced_note": "",
+    "cash_paid": "",
+    "due_amount": "89000.00",
+    "grand_total": "89000.00"
+  },
+  "items": [
+    {
+      "description": "প্লাস্টার বালি (মোটা)   (গাড়ি)",
+      "quantity": "1",
+      "rate": "14000",
+      "sl": 1,
+      "total": "14000.00"
+    },
+    {
+      "description": "১ নম্বর  ইট,  ১গাড়ি    (পিছ)",
+      "quantity": "6000",
+      "rate": "12.5",
+      "sl": 2,
+      "total": "75000.00"
+    }
+  ],
+  "meta": {
+    "date": "04/10/2026",
+    "in_words": "ঊননব্বই হাজার টাকা মাত্র।",
+    "invoice_type": "Master Enterprise Pad",
+    "location": "",
+    "ref_no": "0607-4010"
+  },
+  "updated_at": "2026-10-04T06:51:38.029Z"
+}
