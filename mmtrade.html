@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ট্রাক চালান - মেসার্স মাহমুদ ট্রেডার্স (2 Copies)</title>
+    <!-- Importing a Bengali font -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* General Screen Styles */
+        body {
+            background-color: #d0d0d0;
+            font-family: 'Hind Siliguri', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Print Button (Hidden on print) */
+        .no-print {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Page Wrapper for 2 copies */
+        .page-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            width: 100%;
+            max-width: 1100px; /* Fits standard landscape */
+            margin: 0 auto;
+        }
+
+        /* Individual Challan Style */
+        .challan-paper {
+            background-color: #ffb6c1; /* Pink paper color */
+            flex: 1; /* Take up equal space */
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: 1px solid #d18a94;
+            color: #111;
+            box-sizing: border-box;
+            page-break-inside: avoid; /* Prevent splitting across pages */
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 24px; /* Scaled down for print */
+            margin: 0 0 3px 0;
+            font-weight: 700;
+        }
+
+        .proprietor-box {
+            background-color: #222;
+            color: white;
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .contact-info {
+            font-size: 11px;
+            line-height: 1.3;
+            margin-bottom: 5px;
+        }
+
+        /* Meta Section (Challan No, Title, Date) */
+        .meta-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .title-box {
+            background-color: #222;
+            color: white;
+            padding: 4px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+
+        /* Form Fields */
+        .form-row {
+            display: flex;
+            margin-bottom: 4px;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .label {
+            font-weight: 500;
+            white-space: nowrap;
+            margin-right: 5px;
+        }
+
+        .input-line {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            border-bottom: 1px dotted #444;
+            font-family: 'Hind Siliguri', sans-serif;
+            font-size: 13px;
+            color: #000;
+            outline: none;
+            padding: 0 5px;
+        }
+        
+        .input-line:focus {
+            border-bottom: 1px solid #000;
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        .flex-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .half-width {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        /* --- SPACING ADJUSTED HERE --- */
+        .notes-section {
+            margin-top: 15px;
+            margin-bottom: 30px; 
+        }
+        
+        .notes-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px dotted #444;
+            font-family: 'Hind Siliguri', sans-serif;
+            font-size: 15px;
+            color: #000;
+            outline: none;
+            padding: 2px 0;
+        }
+
+        /* --- SIGNATURE SPACING ADJUSTED HERE --- */
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px; /* Increased from 25px to 60px */
+            align-items: flex-end;
+        }
+
+        .sig-box {
+            text-align: center;
+            width: 30%;
+            position: relative;
+            padding-top: 15px;
+        }
+        
+        .sig-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 10%;
+            width: 80%;
+            border-top: 1px dotted #444;
+        }
+
+        .sig-text {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* =========================================
+           PRINT SPECIFIC STYLES
+           ========================================= */
+        @page {
+            size: letter landscape;
+            margin: 0.2in;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+            }
+
+            .no-print {
+                display: none;
+            }
+
+            .page-container {
+                max-width: 100%;
+                height: 100%;
+                gap: 10px;
+            }
+
+            .challan-paper {
+                box-shadow: none;
+                border: 1px solid #999;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            /* Pre-fill text adjustments for better print visibility */
+            input {
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print">
+        <button onclick="window.print()">🖨️ Print (Landscape)</button>
+    </div>
+
+    <div class="page-container">
+        
+        <!-- ================= COPY 1 ================= -->
+        <div class="challan-paper">
+            <!-- Header -->
+            <div class="header">
+                <h1>মেসার্স মাহমুদ ট্রেডার্স</h1>
+                <div class="proprietor-box">প্রোঃ মোঃ আফজাল হোসেন</div>
+                <div class="contact-info">
+                    মোবাইলঃ ০১৯২৮-১২২৩১৯, ০১৭৭২-১২৬০৪৬<br>
+                    ভারত ও ভুটানের আমদানীকৃত এলসি পাথর, ডলোমাইট পাউডার, জিপসাম<br>
+                    নুড়ি পাথর ও বালু বিক্রয় এবং সরবরাহ করা হয় ।<br>
+                    বুড়িমারী, পাটগ্রাম, লালমনিরহাট।
+                </div>
+            </div>
+
+            <!-- Meta Info -->
+            <div class="meta-section">
+                <div style="display: flex; align-items: center;">
+                    <span class="label">চালান নং&nbsp;</span>
+                    <input type="text" class="input-line" style="width: 70px;" placeholder="6535">
+                </div>
+                <div class="title-box">ট্রাক চালান</div>
+                <div style="display: flex; align-items: center;">
+                    <span class="label">তারিখ&nbsp;</span>
+                    <input type="text" class="input-line" style="width: 100px;" placeholder="২৬/১০/২৬">
+                </div>
+            </div>
+
+            <!-- Sender Details -->
+            <div class="form-row">
+                <span class="label">প্রেরক :</span>
+                <input type="text" class="input-line" value="মোঃ আফজাল হোসেন">
+            </div>
+            <div class="form-row">
+                <span class="label">ঠিকানা :</span>
+                <input type="text" class="input-line" value="বুড়িমারী">
+            </div>
+
+            <!-- Receiver Details -->
+            <div class="form-row">
+                <span class="label">প্রাপক :</span>
+                <input type="text" class="input-line" value="মোঃ বাবলু - মালিকপুর, শ্রীমঙ্গল">
+            </div>
+            <div class="form-row">
+                <span class="label">ঠিকানা :</span>
+                <input type="text" class="input-line" value="বন্দে ফুডস এন্ড বেভারেজ লিঃ">
+            </div>
+
+            <!-- Product Details -->
+            <div class="form-row">
+                <span class="label">পণ্যের নাম :</span>
+                <input type="text" class="input-line" placeholder="যেমন: চিনি / তেল">
+            </div>
+            
+            <div class="form-row">
+                <span class="label">পরিমাণ :</span>
+                <input type="text" class="input-line" placeholder="যেমন: = ২৫০ x ২৫ - ৬ - ১২ = ৪৪৯">
+            </div>
+            
+            <div class="form-row">
+                <span class="label">পণ্যের মূল্য :</span>
+                <input type="text" class="input-line" placeholder="মূল্য লিখুন">
+            </div>
+
+            <!-- Transport Details -->
+            <div class="form-row">
+                <span class="label">ট্রাক নং :</span>
+                <input type="text" class="input-line" placeholder="যেমন: ঢাকা মেট্রো-ট ২২-২৯০৯">
+            </div>
+            
+            <div class="form-row">
+                <span class="label">চালকের নাম :</span>
+                <input type="text" class="input-line" placeholder="মোঃ আসলাম">
+            </div>
+
+            <div class="flex-row form-row" style="margin-bottom: 4px;">
+                <div class="half-width">
+                    <span class="label">লাইসেন্স নং :</span>
+                    <input type="text" class="input-line" placeholder="লাইসেন্স">
+                </div>
+                <div class="half-width">
+                    <span class="label">মোবাইল নং :</span>
+                    <input type="text" class="input-line" placeholder="০১৭xxxxxxxx">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <span class="label">ট্রাক ভাড়া :</span>
+                <input type="text" class="input-line" placeholder="= ৪৪৯ x ৫৮ = ২৬,০৪২/=">
+            </div>
+            
+            <div class="form-row">
+                <span class="label">অগ্রিম :</span>
+                <input type="text" class="input-line" placeholder="অগ্রিম টাকা">
+            </div>
+
+            <div class="form-row">
+                <span class="label">বাকি :</span>
+                <input type="text" class="input-line" placeholder="বাকি টাকা">
+            </div>
+
+            <!-- Notes -->
+            <div class="notes-section form-row">
+                <span class="label">কথায় :</span>
+                <input type="text" class="notes-input" placeholder="এক হাজার ছয়শত বেয়াল্লিশ টাকা মাত্র">
+            </div>
+
+            <!-- Signatures -->
+            <div class="signatures">
+                <div class="sig-box">
+                    <div class="sig-text">চালকের স্বাক্ষর</div>
+                </div>
+                <div class="sig-box">
+                    <div class="sig-text">প্রহীতার স্বাক্ষর</div>
+                </div>
+                <div class="sig-box">
+                    <div class="sig-text">কর্তৃপক্ষের স্বাক্ষর</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= COPY 2 ================= -->
+        <div class="challan-paper">
+            <!-- Header -->
+            <div class="header">
+                <h1>মেসার্স মাহমুদ ট্রেডার্স</h1>
+                <div class="proprietor-box">প্রোঃ মোঃ আফজাল হোসেন</div>
+                <div class="contact-info">
+                    মোবাইলঃ ০১৯২৮-১২২৩১৯, ০১৭৭২-১২৬০৪৬<br>
+                    ভারত ও ভুটানের আমদানীকৃত এলসি পাথর, ডলোমাইট পাউডার, জিপসাম<br>
+                    নুড়ি পাথর ও বালু বিক্রয় এবং সরবরাহ করা হয় ।<br>
+                    বুড়িমারী, পাটগ্রাম, লালমনিরহাট।
+                </div>
+            </div>
+
+            <!-- Meta Info -->
+            <div class="meta-section">
+                <div style="display: flex; align-items: center;">
+                    <span class="label">চালান নং&nbsp;</span>
+                    <input type="text" class="input-line" style="width: 70px;" placeholder="6535">
+                </div>
+                <div class="title-box">ট্রাক চালান</div>
+                <div style="display: flex; align-items: center;">
+                    <span class="label">তারিখ&nbsp;</span>
+                    <input type="text" class="input-line" style="width: 100px;" placeholder="২৬/১০/২৬">
+                </div>
+            </div>
+
+            <!-- Sender Details -->
+            <div class="form-row">
+                <span class="label">প্রেরক :</span>
+                <input type="text" class="input-line" value="মোঃ আফজাল হোসেন">
+            </div>
+            <div class="form-row">
+                <span class="label">ঠিকানা :</span>
+                <input type="text" class="input-line" value="বুড়িমারী">
+            </div>
+
+            <!-- Receiver Details -->
+            <div class="form-row">
+                <span class="label">প্রাপক :</span>
+                <input type="text" class="input-line" value="মোঃ বাবলু - মালিকপুর, শ্রীমঙ্গল">
+            </div>
+            <div class="form-row">
+                <span class="label">ঠিকানা :</span>
+                <input type="text" class="input-line" value="বন্দে ফুডস এন্ড বেভারেজ লিঃ">
+            </div>
+
+            <!-- Product Details -->
+            <div class="form-row">
+                <span class="label">পণ্যের নাম :</span>
+                <input type="text" class="input-line" placeholder="যেমন: চিনি / তেল">
+            </div>
+            
+            <div class="form-row">
+                <span class="label">পরিমাণ :</span>
+                <input type="text" class="input-line" placeholder="যেমন: = ২৫০ x ২৫ - ৬ - ১২ = ৪৪৯">
+            </div>
+            
+            <div class="form-row">
+                <span class="label">পণ্যের মূল্য :</span>
+                <input type="text" class="input-line" placeholder="মূল্য লিখুন">
+            </div>
+
+            <!-- Transport Details -->
+            <div class="form-row">
+                <span class="label">ট্রাক নং :</span>
+                <input type="text" class="input-line" placeholder="যেমন: ঢাকা মেট্রো-ট ২২-২৯০৯">
+            </div>
+            
+            <div class="form-row">
+                <span class="label">চালকের নাম :</span>
+                <input type="text" class="input-line" placeholder="মোঃ আসলাম">
+            </div>
+
+            <div class="flex-row form-row" style="margin-bottom: 4px;">
+                <div class="half-width">
+                    <span class="label">লাইসেন্স নং :</span>
+                    <input type="text" class="input-line" placeholder="লাইসেন্স">
+                </div>
+                <div class="half-width">
+                    <span class="label">মোবাইল নং :</span>
+                    <input type="text" class="input-line" placeholder="০১৭xxxxxxxx">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <span class="label">ট্রাক ভাড়া :</span>
+                <input type="text" class="input-line" placeholder="= ৪৪৯ x ৫৮ = ২৬,০৪২/=">
+            </div>
+            
+            <div class="form-row">
+                <span class="label">অগ্রিম :</span>
+                <input type="text" class="input-line" placeholder="অগ্রিম টাকা">
+            </div>
+
+            <div class="form-row">
+                <span class="label">বাকি :</span>
+                <input type="text" class="input-line" placeholder="বাকি টাকা">
+            </div>
+
+            <!-- Notes -->
+            <div class="notes-section form-row">
+                <span class="label">কথায় :</span>
+                <input type="text" class="notes-input" placeholder="এক হাজার ছয়শত বেয়াল্লিশ টাকা মাত্র">
+            </div>
+
+            <!-- Signatures -->
+            <div class="signatures">
+                <div class="sig-box">
+                    <div class="sig-text">চালকের স্বাক্ষর</div>
+                </div>
+                <div class="sig-box">
+                    <div class="sig-text">প্রহীতার স্বাক্ষর</div>
+                </div>
+                <div class="sig-box">
+                    <div class="sig-text">কর্তৃপক্ষের স্বাক্ষর</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
