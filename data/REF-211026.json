@@ -1,0 +1,33 @@
+{
+  "financials": {
+    "advanced": "",
+    "advanced_note": "",
+    "cash_paid": "",
+    "due_amount": "0.00",
+    "grand_total": "0.00"
+  },
+  "items": [
+    {
+      "description": "VSL রড ১০ এম এম, ২ টন",
+      "quantity": "2",
+      "rate": "0.00",
+      "sl": 1,
+      "total": "0.00"
+    },
+    {
+      "description": "VSL রড ১২ এম এম, ৬ টন",
+      "quantity": "6",
+      "rate": "0.00",
+      "sl": 2,
+      "total": "0.00"
+    }
+  ],
+  "meta": {
+    "date": "21/10/2026",
+    "in_words": "০ টাকা মাত্র।",
+    "invoice_type": "Master Enterprise Pad",
+    "location": "গ্রীন হাউস গ্লোবল লিমিটেড, শরিফ বাজার, বাওনি, গোশিংগা, শ্রীপুর।",
+    "ref_no": "211026"
+  },
+  "updated_at": "2026-10-21T06:17:13.975Z"
+}
