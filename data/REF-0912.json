@@ -1,0 +1,33 @@
+{
+  "financials": {
+    "advanced": "",
+    "advanced_note": "",
+    "cash_paid": "",
+    "due_amount": "776529.00",
+    "grand_total": "776529.00"
+  },
+  "items": [
+    {
+      "description": "৩/৪ ডাউন  ভুটান এলসি পাথর  ( সিএফটি)",
+      "quantity": "447",
+      "rate": "207",
+      "sl": 1,
+      "total": "92529.00"
+    },
+    {
+      "description": "VSL রড  ১২মিলি ৬ টন + ১০ মিলি ২ টন,  (KG)",
+      "quantity": "8000",
+      "rate": "85.5",
+      "sl": 2,
+      "total": "684000.00"
+    }
+  ],
+  "meta": {
+    "date": "24/10/2026",
+    "in_words": "সাত লক্ষ ছিয়াত্তর হাজার পাঁচ শত ঊনত্রিশ টাকা মাত্র।",
+    "invoice_type": "Master Enterprise Pad",
+    "location": "শরিফ বাজার, বাউনি, গোসিংগা, শ্রীপুর।",
+    "ref_no": "0912"
+  },
+  "updated_at": "2026-10-24T11:07:49.839Z"
+}
