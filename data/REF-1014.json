@@ -3,8 +3,8 @@
     "advanced": "",
     "advanced_note": "",
     "cash_paid": "",
-    "due_amount": "872173.00",
-    "grand_total": "872173.00"
+    "due_amount": "399673.00",
+    "grand_total": "399673.00"
   },
   "items": [
     {
@@ -16,10 +16,10 @@
     },
     {
       "description": "শাহ স্পেশাল সিমেন্ট  (বস্তা)",
-      "quantity": "1000",
+      "quantity": "100",
       "rate": "525",
       "sl": 2,
-      "total": "525000.00"
+      "total": "52500.00"
     },
     {
       "description": "ভেকু ২ দিনে ১২ ঘন্টা",
@@ -52,10 +52,10 @@
   ],
   "meta": {
     "date": "27/10/2026",
-    "in_words": "আট লক্ষ বাহাত্তর হাজার এক শত তেহাত্তর টাকা মাত্র।",
+    "in_words": "তিন লক্ষ নিরানব্বই হাজার ছয় শত তেহাত্তর টাকা মাত্র।",
     "invoice_type": "Master Enterprise Pad",
     "location": "রানিপুর, ভবানিপুর, জয়দেবপুর।",
     "ref_no": "1014"
   },
-  "updated_at": "2026-10-27T04:14:35.504Z"
+  "updated_at": "2026-10-27T04:16:31.792Z"
 }
